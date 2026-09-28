@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Watchlist | 360 ONE CAPITAL MARKET</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4faf7;
+    color:#16352b;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+
+    width:250px;
+    height:100vh;
+
+    background:white;
+
+    border-right:1px solid #dcebe5;
+
+    padding:22px 15px;
+
+    overflow-y:auto;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:5px 10px 28px;
+}
+
+.logo-circle{
+    width:43px;
+    height:43px;
+
+    border-radius:50%;
+
+    background:#087f5b;
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:15px;
+    font-weight:bold;
+}
+
+.logo-text{
+    font-size:17px;
+    font-weight:bold;
+
+    color:#087f5b;
+
+    line-height:1.2;
+}
+
+.menu-title{
+    font-size:11px;
+
+    color:#8a9d96;
+
+    margin:15px 12px 8px;
+
+    font-weight:bold;
+}
+
+.menu a{
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    text-decoration:none;
+
+    color:#536b63;
+
+    padding:12px 14px;
+
+    border-radius:10px;
+
+    margin-bottom:5px;
+
+    font-size:14px;
+}
+
+.menu a:hover,
+.menu a.active{
+    background:#e6f8f1;
+
+    color:#087f5b;
+
+    font-weight:bold;
+}
+
+.logout{
+    margin-top:25px;
+
+    color:#d94b4b !important;
+}
+
+
+/* ================= MAIN ================= */
+
+.main{
+    margin-left:250px;
+
+    min-height:100vh;
+}
+
+
+/* ================= TOPBAR ================= */
+
+.topbar{
+    height:70px;
+
+    background:white;
+
+    border-bottom:1px solid #dcebe5;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 30px;
+}
+
+.page-title{
+    font-size:22px;
+
+    font-weight:bold;
+}
+
+.top-right{
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+}
+
+.market-status{
+    background:#e6f8f1;
+
+    color:#087f5b;
+
+    padding:8px 13px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:bold;
+}
+
+.user{
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    background:#087f5b;
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:bold;
+
+    font-size:13px;
+}
+
+
+/* ================= CONTENT ================= */
+
+.content{
+    padding:28px;
+}
+
+
+/* ================= HEADER ================= */
+
+.header-section{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-end;
+
+    margin-bottom:25px;
+}
+
+.header-section h1{
+    font-size:28px;
+
+    margin-bottom:7px;
+}
+
+.header-section p{
+    color:#71857d;
+
+    font-size:14px;
+}
+
+.add-btn{
+    border:none;
+
+    background:#087f5b;
+
+    color:white;
+
+    padding:12px 20px;
+
+    border-radius:8px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.add-btn:hover{
+    background:#066b4d;
+}
+
+
+/* ================= SEARCH ================= */
+
+.search-box{
+    background:white;
+
+    border:1px solid #dfece7;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    margin-bottom:20px;
+}
+
+.search-box input{
+    width:100%;
+
+    height:42px;
+
+    border:1px solid #d6e6df;
+
+    border-radius:8px;
+
+    padding:0 13px;
+
+    outline:none;
+
+    font-size:13px;
+}
+
+.search-box input:focus{
+    border-color:#087f5b;
+}
+
+
+/* ================= TABS ================= */
+
+.tabs{
+    display:flex;
+
+    gap:8px;
+
+    margin-bottom:20px;
+}
+
+.tab{
+    border:none;
+
+    background:white;
+
+    color:#647870;
+
+    padding:10px 18px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-size:12px;
+
+    border:1px solid #dfece7;
+}
+
+.tab.active,
+.tab:hover{
+    background:#087f5b;
+
+    color:white;
+
+    border-color:#087f5b;
+}
+
+
+/* ================= WATCHLIST CARD ================= */
+
+.watchlist-card{
+    background:white;
+
+    border:1px solid #dfece7;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    box-shadow:0 3px 12px rgba(0,0,0,.04);
+}
+
+
+/* ================= TABLE ================= */
+
+table{
+    width:100%;
+
+    border-collapse:collapse;
+}
+
+thead{
+    background:#f7fbf9;
+}
+
+th{
+    text-align:left;
+
+    padding:15px;
+
+    color:#82938d;
+
+    font-size:11px;
+
+    border-bottom:1px solid #e6efeb;
+}
+
+td{
+    padding:17px 15px;
+
+    font-size:13px;
+
+    border-bottom:1px solid #edf3f0;
+}
+
+tbody tr:hover{
+    background:#f9fcfb;
+}
+
+
+/* ================= STOCK ================= */
+
+.stock{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}
+
+.stock-icon{
+    width:38px;
+    height:38px;
+
+    border-radius:10px;
+
+    background:#e6f8f1;
+
+    color:#087f5b;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:bold;
+
+    font-size:12px;
+}
+
+.stock-name{
+    font-weight:bold;
+
+    color:#16352b;
+}
+
+.stock-symbol{
+    color:#8a9b95;
+
+    font-size:10px;
+
+    margin-top:4px;
+}
+
+
+/* ================= PRICE ================= */
+
+.price{
+    font-weight:bold;
+}
+
+.positive{
+    color:#087f5b;
+}
+
+.negative{
+    color:#d94b4b;
+}
+
+
+/* ================= ACTION BUTTONS ================= */
+
+.actions{
+    display:flex;
+
+    gap:7px;
+}
+
+.buy-btn,
+.sell-btn{
+    border:none;
+
+    padding:7px 12px;
+
+    border-radius:6px;
+
+    font-size:11px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.buy-btn{
+    background:#e4f7ef;
+
+    color:#087f5b;
+}
+
+.buy-btn:hover{
+    background:#087f5b;
+
+    color:white;
+}
+
+.sell-btn{
+    background:#fff0f0;
+
+    color:#d94b4b;
+}
+
+.sell-btn:hover{
+    background:#d94b4b;
+
+    color:white;
+}
+
+
+/* ================= EMPTY MESSAGE ================= */
+
+.no-result{
+    display:none;
+
+    text-align:center;
+
+    padding:40px;
+
+    color:#7c8e87;
+
+    font-size:13px;
+}
+
+
+/* ================= FOOTER ================= */
+
+.footer{
+    text-align:center;
+
+    padding:25px;
+
+    color:#8b9b95;
+
+    font-size:12px;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:900px){
+
+    .sidebar{
+        width:70px;
+
+        padding:15px 8px;
+    }
+
+    .logo-text,
+    .menu-title,
+    .menu a span{
+        display:none;
+    }
+
+    .logo{
+        justify-content:center;
+    }
+
+    .menu a{
+        justify-content:center;
+    }
+
+    .main{
+        margin-left:70px;
+    }
+
+    .content{
+        padding:20px;
+    }
+
+    .header-section{
+        align-items:flex-start;
+
+        gap:15px;
+    }
+
+    .watchlist-card{
+        overflow-x:auto;
+    }
+
+    table{
+        min-width:850px;
+    }
+}
+
+
+@media(max-width:600px){
+
+    .header-section{
+        flex-direction:column;
+    }
+
+    .add-btn{
+        width:100%;
+    }
+
+    .topbar{
+        padding:0 15px;
+    }
+
+    .market-status{
+        display:none;
+    }
+
+    .header-section h1{
+        font-size:24px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+     ===================================================== -->
+
+<aside class="sidebar">
+
+
+    <div class="logo">
+
+        <div class="logo-circle">
+            360
+        </div>
+
+        <div class="logo-text">
+            360 ONE<br>
+            CAPITAL MARKET
+        </div>
+
+    </div>
+
+
+    <div class="menu-title">
+        MAIN MENU
+    </div>
+
+
+    <div class="menu">
+
+        <a href="Dashboard.html">
+            📊 <span>Dashboard</span>
+        </a>
+
+        <a href="Watchlist.html" class="active">
+            ⭐ <span>Watchlist</span>
+        </a>
+
+        <a href="Positions.html">
+            📈 <span>Positions</span>
+        </a>
+
+        <a href="orders.html">
+            📝 <span>Orders</span>
+        </a>
+
+        <a href="Tradehistory.html">
+            🕘 <span>Trade History</span>
+        </a>
+
+    </div>
+
+
+    <div class="menu-title">
+        FUNDS & ACCOUNT
+    </div>
+
+
+    <div class="menu">
+
+        <a href="funds.html">
+            💰 <span>Funds</span>
+        </a>
+
+        <a href="Withdraw.html">
+            💳 <span>Withdraw</span>
+        </a>
+
+        <a href="Ledger.html">
+            📒 <span>Ledger</span>
+        </a>
+
+        <a href="Rejection.html">
+            ⚠️ <span>Rejections</span>
+        </a>
+
+    </div>
+
+
+    <div class="menu-title">
+        ACCOUNT
+    </div>
+
+
+    <div class="menu">
+
+        <a href="Profile.html">
+            👤 <span>Profile</span>
+        </a>
+
+        <a href="Settings.html">
+            ⚙️ <span>Settings</span>
+        </a>
+
+        <a
+            href="index.html"
+            class="logout"
+            onclick="logoutUser()"
+        >
+            🚪 <span>Logout</span>
+        </a>
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+     ===================================================== -->
+
+<main class="main">
+
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+        <div class="page-title">
+            Watchlist
+        </div>
+
+
+        <div class="top-right">
+
+            <div class="market-status">
+                ● Market Open
+            </div>
+
+            <div
+                class="user"
+                id="userInitial"
+            >
+                U
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+
+        <!-- HEADER -->
+
+        <div class="header-section">
+
+            <div>
+
+                <h1>
+                    My Watchlist
+                </h1>
+
+                <p>
+                    Track your favourite stocks and market movements.
+                </p>
+
+            </div>
+
+
+            <button
+                class="add-btn"
+                onclick="addStock()"
+            >
+                + ADD STOCK
+            </button>
+
+        </div>
+
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search stock by name or symbol..."
+                onkeyup="searchStocks()"
+            >
+
+        </div>
+
+
+
+        <!-- TABS -->
+
+        <div class="tabs">
+
+            <button
+                class="tab active"
+                onclick="filterStocks('all', this)"
+            >
+                All Stocks
+            </button>
+
+            <button
+                class="tab"
+                onclick="filterStocks('positive', this)"
+            >
+                Gainers
+            </button>
+
+            <button
+                class="tab"
+                onclick="filterStocks('negative', this)"
+            >
+                Losers
+            </button>
+
+        </div>
+
+
+
+        <!-- WATCHLIST -->
+
+        <div class="watchlist-card">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            STOCK
+                        </th>
+
+                        <th>
+                            PRICE
+                        </th>
+
+                        <th>
+                            CHANGE
+                        </th>
+
+                        <th>
+                            OPEN
+                        </th>
+
+                        <th>
+                            HIGH
+                        </th>
+
+                        <th>
+                            LOW
+                        </th>
+
+                        <th>
+                            ACTION
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="stockTable">
+
+
+                    <!-- RELIANCE -->
+
+                    <tr
+                        class="stock-row positive-row"
+                        data-type="positive"
+                    >
+
+                        <td>
+
+                            <div class="stock">
+
+                                <div class="stock-icon">
+                                    R
+                                </div>
+
+                                <div>
+
+                                    <div class="stock-name">
+                                        Reliance Industries
+                                    </div>
+
+                                    <div class="stock-symbol">
+                                        RELIANCE
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td class="price">
+                            ₹1,425.30
+                        </td>
+
+
+                        <td class="positive">
+                            +₹17.45
+                        </td>
+
+
+                        <td>
+                            ₹1,408.20
+                        </td>
+
+
+                        <td>
+                            ₹1,432.80
+                        </td>
+
+
+                        <td>
+                            ₹1,402.10
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <button
+                                    class="buy-btn"
+                                    onclick="trade('BUY','Reliance Industries')"
+                                >
+                                    BUY
+                                </button>
+
+                                <button
+                                    class="sell-btn"
+                                    onclick="trade('SELL','Reliance Industries')"
+                                >
+                                    SELL
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- TCS -->
+
+                    <tr
+                        class="stock-row positive-row"
+                        data-type="positive"
+                    >
+
+                        <td>
+
+                            <div class="stock">
+
+                                <div class="stock-icon">
+                                    T
+                                </div>
+
+                                <div>
+
+                                    <div class="stock-name">
+                                        Tata Consultancy Services
+                                    </div>
+
+                                    <div class="stock-symbol">
+                                        TCS
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td class="price">
+                            ₹3,865.50
+                        </td>
+
+
+                        <td class="positive">
+                            +₹32.60
+                        </td>
+
+
+                        <td>
+                            ₹3,832.00
+                        </td>
+
+
+                        <td>
+                            ₹3,878.90
+                        </td>
+
+
+                        <td>
+                            ₹3,821.40
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <button
+                                    class="buy-btn"
+                                    onclick="trade('BUY','TCS')"
+                                >
+                                    BUY
+                                </button>
+
+                                <button
+                                    class="sell-btn"
+                                    onclick="trade('SELL','TCS')"
+                                >
+                                    SELL
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- HDFC -->
+
+                    <tr
+                        class="stock-row positive-row"
+                        data-type="positive"
+                    >
+
+                        <td>
+
+                            <div class="stock">
+
+                                <div class="stock-icon">
+                                    H
+                                </div>
+
+                                <div>
+
+                                    <div class="stock-name">
+                                        HDFC Bank
+                                    </div>
+
+                                    <div class="stock-symbol">
+                                        HDFCBANK
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td class="price">
+                            ₹1,745.80
+                        </td>
+
+
+                        <td class="positive">
+                            +₹11.80
+                        </td>
+
+
+                        <td>
+                            ₹1,735.20
+                        </td>
+
+
+                        <td>
+                            ₹1,752.60
+                        </td>
+
+
+                        <td>
+                            ₹1,728.90
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <button
+                                    class="buy-btn"
+                                    onclick="trade('BUY','HDFC Bank')"
+                                >
+                                    BUY
+                                </button>
+
+                                <button
+                                    class="sell-btn"
+                                    onclick="trade('SELL','HDFC Bank')"
+                                >
+                                    SELL
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- INFOSYS -->
+
+                    <tr
+                        class="stock-row negative-row"
+                        data-type="negative"
+                    >
+
+                        <td>
+
+                            <div class="stock">
+
+                                <div class="stock-icon">
+                                    I
+                                </div>
+
+                                <div>
+
+                                    <div class="stock-name">
+                                        Infosys
+                                    </div>
+
+                                    <div class="stock-symbol">
+                                        INFY
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td class="price">
+                            ₹1,485.25
+                        </td>
+
+
+                        <td class="negative">
+                            -₹4.75
+                        </td>
+
+
+                        <td>
+                            ₹1,491.00
+                        </td>
+
+
+                        <td>
+                            ₹1,498.50
+                        </td>
+
+
+                        <td>
+                            ₹1,477.20
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <button
+                                    class="buy-btn"
+                                    onclick="trade('BUY','Infosys')"
+                                >
+                                    BUY
+                                </button>
+
+                                <button
+                                    class="sell-btn"
+                                    onclick="trade('SELL','Infosys')"
+                                >
+                                    SELL
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- ICICI -->
+
+                    <tr
+                        class="stock-row positive-row"
+                        data-type="positive"
+                    >
+
+                        <td>
+
+                            <div class="stock">
+
+                                <div class="stock-icon">
+                                    I
+                                </div>
+
+                                <div>
+
+                                    <div class="stock-name">
+                                        ICICI Bank
+                                    </div>
+
+                                    <div class="stock-symbol">
+                                        ICICIBANK
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td class="price">
+                            ₹1,425.60
+                        </td>
+
+
+                        <td class="positive">
+                            +₹9.35
+                        </td>
+
+
+                        <td>
+                            ₹1,416.20
+                        </td>
+
+
+                        <td>
+                            ₹1,431.80
+                        </td>
+
+
+                        <td>
+                            ₹1,409.50
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <button
+                                    class="buy-btn"
+                                    onclick="trade('BUY','ICICI Bank')"
+                                >
+                                    BUY
+                                </button>
+
+                                <button
+                                    class="sell-btn"
+                                    onclick="trade('SELL','ICICI Bank')"
+                                >
+                                    SELL
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- ITC -->
+
+                    <tr
+                        class="stock-row negative-row"
+                        data-type="negative"
+                    >
+
+                        <td>
+
+                            <div class="stock">
+
+                                <div class="stock-icon">
+                                    I
+                                </div>
+
+                                <div>
+
+                                    <div class="stock-name">
+                                        ITC
+                                    </div>
+
+                                    <div class="stock-symbol">
+                                        ITC
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td class="price">
+                            ₹452.30
+                        </td>
+
+
+                        <td class="negative">
+                            -₹2.15
+                        </td>
+
+
+                        <td>
+                            ₹454.80
+                        </td>
+
+
+                        <td>
+                            ₹457.20
+                        </td>
+
+
+                        <td>
+                            ₹450.10
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <button
+                                    class="buy-btn"
+                                    onclick="trade('BUY','ITC')"
+                                >
+                                    BUY
+                                </button>
+
+                                <button
+                                    class="sell-btn"
+                                    onclick="trade('SELL','ITC')"
+                                >
+                                    SELL
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- HINDALCO -->
+
+                    <tr
+                        class="stock-row positive-row"
+                        data-type="positive"
+                    >
+
+                        <td>
+
+                            <div class="stock">
+
+                                <div class="stock-icon">
+                                    H
+                                </div>
+
+                                <div>
+
+                                    <div class="stock-name">
+                                        Hindalco Industries
+                                    </div>
+
+                                    <div class="stock-symbol">
+                                        HINDALCO
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td class="price">
+                            ₹742.15
+                        </td>
+
+
+                        <td class="positive">
+                            +₹8.40
+                        </td>
+
+
+                        <td>
+                            ₹734.20
+                        </td>
+
+
+                        <td>
+                            ₹748.90
+                        </td>
+
+
+                        <td>
+                            ₹729.80
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <button
+                                    class="buy-btn"
+                                    onclick="trade('BUY','Hindalco Industries')"
+                                >
+                                    BUY
+                                </button>
+
+                                <button
+                                    class="sell-btn"
+                                    onclick="trade('SELL','Hindalco Industries')"
+                                >
+                                    SELL
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+
+            <div
+                class="no-result"
+                id="noResult"
+            >
+                No stocks found.
+            </div>
+
+        </div>
+
+
+
+        <div class="footer">
+            © 2026 360 ONE CAPITAL MARKET · Demo Trading Interface
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<script>
+
+/* =====================================================
+   USER INITIAL
+   ===================================================== */
+
+const savedUser =
+    localStorage.getItem("loggedInUser");
+
+
+if(savedUser){
+
+    try{
+
+        const user =
+            JSON.parse(savedUser);
+
+        const fullName =
+            user.fullName ||
+            user.username ||
+            "User";
+
+        const initials =
+            fullName
+            .trim()
+            .split(/\s+/)
+            .map(word => word.charAt(0))
+            .join("")
+            .substring(0,2)
+            .toUpperCase();
+
+        document.getElementById("userInitial")
+            .textContent = initials || "U";
+
+    }
+    catch(error){
+
+        console.log("User data unavailable.");
+
+    }
+
+}
+
+
+/* =====================================================
+   SEARCH STOCKS
+   ===================================================== */
+
+function searchStocks(){
+
+    const search =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const rows =
+        document.querySelectorAll(".stock-row");
+
+    let found = false;
+
+
+    rows.forEach(row => {
+
+        const text =
+            row.textContent.toLowerCase();
+
+        if(text.includes(search)){
+
+            row.style.display = "";
+
+            found = true;
+
+        }
+        else{
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+
+    document.getElementById("noResult")
+        .style.display =
+        found ? "none" : "block";
+
+}
+
+
+/* =====================================================
+   FILTER STOCKS
+   ===================================================== */
+
+function filterStocks(type, button){
+
+    const rows =
+        document.querySelectorAll(".stock-row");
+
+    const tabs =
+        document.querySelectorAll(".tab");
+
+
+    tabs.forEach(tab => {
+
+        tab.classList.remove("active");
+
+    });
+
+
+    button.classList.add("active");
+
+
+    let found = false;
+
+
+    rows.forEach(row => {
+
+        const rowType =
+            row.getAttribute("data-type");
+
+
+        if(
+            type === "all" ||
+            type === rowType
+        ){
+
+            row.style.display = "";
+
+            found = true;
+
+        }
+        else{
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+
+    document.getElementById("noResult")
+        .style.display =
+        found ? "none" : "block";
+
+}
+
+
+/* =====================================================
+   BUY / SELL
+   ===================================================== */
+
+function trade(type, stock){
+
+    alert(
+        type + " order selected for " +
+        stock +
+        ".\n\n" +
+        "This is a demo interface. " +
+        "No real order will be placed."
+    );
+
+}
+
+
+/* =====================================================
+   ADD STOCK
+   ===================================================== */
+
+function addStock(){
+
+    alert(
+        "Add Stock feature is available in this demo interface."
+    );
+
+}
+
+
+/* =====================================================
+   LOGOUT
+   ===================================================== */
+
+function logoutUser(){
+
+    localStorage.removeItem("loggedInUser");
+    localStorage.removeItem("authToken");
+
+    window.location.href =
+        "index.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

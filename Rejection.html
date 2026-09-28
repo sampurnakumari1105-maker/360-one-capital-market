@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejections | 360 ONE CAPITAL MARKET</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f5f8f6;
+            color:#1d2b24;
+        }
+
+        /* SIDEBAR */
+        .sidebar{
+            position:fixed;
+            left:0;
+            top:0;
+            width:245px;
+            height:100vh;
+            background:#fff;
+            border-right:1px solid #e2ebe5;
+            padding:20px 15px;
+            z-index:10;
+        }
+
+        .logo{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            padding:8px 10px 25px;
+            border-bottom:1px solid #e8eee9;
+        }
+
+        .logo-circle{
+            width:42px;
+            height:42px;
+            border-radius:50%;
+            background:#0b8f55;
+            color:#fff;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:14px;
+            font-weight:bold;
+        }
+
+        .logo-text{
+            font-size:14px;
+            font-weight:700;
+            color:#17382a;
+            line-height:1.2;
+        }
+
+        .nav{
+            margin-top:22px;
+        }
+
+        .nav a{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            text-decoration:none;
+            color:#66736c;
+            padding:12px 14px;
+            margin-bottom:5px;
+            border-radius:8px;
+            font-size:14px;
+            transition:.2s;
+        }
+
+        .nav a:hover{
+            background:#eef8f2;
+            color:#07864e;
+        }
+
+        .nav a.active{
+            background:#e8f7ef;
+            color:#07864e;
+            font-weight:600;
+        }
+
+        .nav-icon{
+            width:22px;
+            text-align:center;
+            font-size:17px;
+        }
+
+        .logout{
+            position:absolute;
+            bottom:20px;
+            left:15px;
+            right:15px;
+        }
+
+        .logout a{
+            color:#d94b4b;
+        }
+
+        .logout a:hover{
+            background:#fff1f1;
+            color:#d33d3d;
+        }
+
+        /* MAIN */
+        .main{
+            margin-left:245px;
+            min-height:100vh;
+        }
+
+        .topbar{
+            height:70px;
+            background:#fff;
+            border-bottom:1px solid #e2ebe5;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:0 30px;
+        }
+
+        .page-title{
+            font-size:21px;
+            font-weight:700;
+            color:#18382a;
+        }
+
+        .top-right{
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+
+        .notification{
+            width:38px;
+            height:38px;
+            border-radius:50%;
+            background:#f1f6f3;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:17px;
+        }
+
+        .user{
+            width:38px;
+            height:38px;
+            border-radius:50%;
+            background:#0b8f55;
+            color:#fff;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:13px;
+            font-weight:bold;
+        }
+
+        /* CONTENT */
+        .content{
+            padding:30px;
+        }
+
+        .breadcrumb{
+            color:#7b8780;
+            font-size:13px;
+            margin-bottom:25px;
+        }
+
+        .breadcrumb span{
+            color:#0b8f55;
+        }
+
+        /* SUMMARY */
+        .summary-grid{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:18px;
+            margin-bottom:25px;
+        }
+
+        .summary-card{
+            background:#fff;
+            border:1px solid #e1eae4;
+            border-radius:11px;
+            padding:20px;
+            box-shadow:0 2px 8px rgba(20,60,40,.04);
+        }
+
+        .summary-label{
+            color:#758078;
+            font-size:12px;
+            margin-bottom:9px;
+        }
+
+        .summary-value{
+            font-size:22px;
+            font-weight:700;
+            color:#263a2e;
+        }
+
+        .summary-value.red{
+            color:#d94b4b;
+        }
+
+        .summary-value.orange{
+            color:#c87920;
+        }
+
+        .summary-value.green{
+            color:#07864e;
+        }
+
+        /* MAIN CARD */
+        .rejection-card{
+            background:#fff;
+            border:1px solid #e1eae4;
+            border-radius:12px;
+            overflow:hidden;
+            box-shadow:0 2px 8px rgba(20,60,40,.04);
+        }
+
+        .card-header{
+            padding:22px 24px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:15px;
+            border-bottom:1px solid #e8eee9;
+        }
+
+        .card-header h2{
+            font-size:18px;
+            color:#18382a;
+        }
+
+        .card-header p{
+            font-size:12px;
+            color:#7b8780;
+            margin-top:5px;
+        }
+
+        .search{
+            width:230px;
+            height:40px;
+            border:1px solid #d7e1db;
+            border-radius:7px;
+            padding:0 12px;
+            outline:none;
+            font-size:13px;
+        }
+
+        .search:focus{
+            border-color:#0b8f55;
+        }
+
+        /* FILTERS */
+        .filters{
+            display:flex;
+            gap:8px;
+            padding:17px 24px;
+            border-bottom:1px solid #edf1ee;
+        }
+
+        .filter-btn{
+            border:1px solid #d7e2db;
+            background:#fff;
+            color:#68756e;
+            padding:8px 15px;
+            border-radius:6px;
+            cursor:pointer;
+            font-size:12px;
+        }
+
+        .filter-btn:hover{
+            background:#f0f8f3;
+            color:#07864e;
+        }
+
+        .filter-btn.active{
+            background:#0b8f55;
+            border-color:#0b8f55;
+            color:#fff;
+        }
+
+        /* TABLE */
+        .table-container{
+            overflow-x:auto;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            min-width:950px;
+        }
+
+        th{
+            text-align:left;
+            background:#f8faf9;
+            color:#69766f;
+            font-size:11px;
+            font-weight:600;
+            padding:14px 18px;
+            border-bottom:1px solid #e7eee9;
+        }
+
+        td{
+            padding:16px 18px;
+            border-bottom:1px solid #edf1ee;
+            font-size:13px;
+            color:#35443b;
+        }
+
+        tbody tr:hover{
+            background:#fafcfb;
+        }
+
+        .order-id{
+            font-weight:600;
+            color:#07864e;
+        }
+
+        .stock{
+            font-weight:600;
+            color:#26392e;
+        }
+
+        .date{
+            color:#7c8781;
+            font-size:12px;
+        }
+
+        .side-buy{
+            color:#07864e;
+            font-weight:600;
+        }
+
+        .side-sell{
+            color:#d94b4b;
+            font-weight:600;
+        }
+
+        .status{
+            display:inline-block;
+            padding:5px 9px;
+            border-radius:5px;
+            font-size:10px;
+            font-weight:600;
+            background:#fff0f0;
+            color:#d94b4b;
+        }
+
+        .reason{
+            color:#68756e;
+            max-width:230px;
+            line-height:1.4;
+        }
+
+        .details-btn{
+            border:1px solid #cfe0d6;
+            background:#f6faf7;
+            color:#07864e;
+            padding:7px 11px;
+            border-radius:6px;
+            font-size:11px;
+            cursor:pointer;
+        }
+
+        .details-btn:hover{
+            background:#e8f7ef;
+        }
+
+        /* NO RESULT */
+        .no-result{
+            display:none;
+            text-align:center;
+            padding:35px;
+            color:#7d8982;
+            font-size:13px;
+        }
+
+        /* FOOTER */
+        .card-footer{
+            padding:17px 24px;
+            color:#7c8781;
+            font-size:12px;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:1000px){
+
+            .summary-grid{
+                grid-template-columns:repeat(2,1fr);
+            }
+        }
+
+        @media(max-width:750px){
+
+            .sidebar{
+                width:70px;
+                padding:15px 10px;
+            }
+
+            .logo-text{
+                display:none;
+            }
+
+            .logo{
+                justify-content:center;
+                padding:8px 0 20px;
+            }
+
+            .nav a{
+                justify-content:center;
+                padding:12px 5px;
+            }
+
+            .nav a span:not(.nav-icon){
+                display:none;
+            }
+
+            .logout a{
+                justify-content:center;
+            }
+
+            .main{
+                margin-left:70px;
+            }
+
+            .content{
+                padding:20px 15px;
+            }
+
+            .topbar{
+                padding:0 15px;
+            }
+
+            .page-title{
+                font-size:18px;
+            }
+
+            .summary-grid{
+                grid-template-columns:1fr;
+            }
+
+            .card-header{
+                flex-direction:column;
+                align-items:flex-start;
+            }
+
+            .search{
+                width:100%;
+            }
+
+            .filters{
+                overflow-x:auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-circle">
+                360
+            </div>
+
+            <div class="logo-text">
+                360 ONE<br>
+                CAPITAL MARKET
+            </div>
+
+        </div>
+
+
+        <nav class="nav">
+
+            <a href="Dashboard.html">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="Watchlist.html">
+                <span class="nav-icon">☆</span>
+                <span>Watchlist</span>
+            </a>
+
+            <a href="Positions.html">
+                <span class="nav-icon">◈</span>
+                <span>Positions</span>
+            </a>
+
+            <a href="orders.html">
+                <span class="nav-icon">▣</span>
+                <span>Orders</span>
+            </a>
+
+            <a href="Tradehistory.html">
+                <span class="nav-icon">↔</span>
+                <span>Trade History</span>
+            </a>
+
+            <a href="funds.html">
+                <span class="nav-icon">₹</span>
+                <span>Funds</span>
+            </a>
+
+            <a href="Withdraw.html">
+                <span class="nav-icon">↓</span>
+                <span>Withdraw</span>
+            </a>
+
+            <a href="Ledger.html">
+                <span class="nav-icon">☷</span>
+                <span>Ledger</span>
+            </a>
+
+            <a href="Rejections.html" class="active">
+                <span class="nav-icon">⊘</span>
+                <span>Rejections</span>
+            </a>
+
+            <a href="Profile.html">
+                <span class="nav-icon">♙</span>
+                <span>Profile</span>
+            </a>
+
+            <a href="Settings.html">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <div class="logout">
+
+            <a href="#" onclick="logoutUser()">
+                <span class="nav-icon">⇥</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div class="page-title">
+                Rejections
+            </div>
+
+            <div class="top-right">
+
+                <div class="notification">
+                    🔔
+                </div>
+
+                <div class="user" id="userInitial">
+                    U
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+        <section class="content">
+
+            <div class="breadcrumb">
+                Orders &nbsp; / &nbsp; <span>Rejections</span>
+            </div>
+
+
+            <!-- SUMMARY -->
+            <div class="summary-grid">
+
+                <div class="summary-card">
+
+                    <div class="summary-label">
+                        Total Rejections
+                    </div>
+
+                    <div class="summary-value red">
+                        4
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-label">
+                        Insufficient Funds
+                    </div>
+
+                    <div class="summary-value orange">
+                        2
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-label">
+                        Price Related
+                    </div>
+
+                    <div class="summary-value">
+                        1
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-label">
+                        Other Reasons
+                    </div>
+
+                    <div class="summary-value">
+                        1
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- REJECTIONS TABLE -->
+            <div class="rejection-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Rejected Orders
+                        </h2>
+
+                        <p>
+                            Review orders that could not be processed
+                        </p>
+
+                    </div>
+
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        class="search"
+                        placeholder="Search stock or order ID..."
+                        oninput="searchRejections()"
+                    >
+
+                </div>
+
+
+                <!-- FILTERS -->
+                <div class="filters">
+
+                    <button
+                        class="filter-btn active"
+                        onclick="filterRejections('all', this)">
+                        All
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        onclick="filterRejections('funds', this)">
+                        Insufficient Funds
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        onclick="filterRejections('price', this)">
+                        Price Related
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        onclick="filterRejections('other', this)">
+                        Other
+                    </button>
+
+                </div>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Date</th>
+                                <th>Order ID</th>
+                                <th>Stock</th>
+                                <th>Type</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Reason</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="rejectionBody">
+
+                            <!-- ROW 1 -->
+                            <tr
+                                class="rejection-row"
+                                data-type="funds">
+
+                                <td class="date">
+                                    20 Sep 2026
+                                </td>
+
+                                <td class="order-id">
+                                    #REJ3001
+                                </td>
+
+                                <td class="stock">
+                                    Reliance
+                                </td>
+
+                                <td class="side-buy">
+                                    BUY
+                                </td>
+
+                                <td>
+                                    20
+                                </td>
+
+                                <td>
+                                    ₹2,945
+                                </td>
+
+                                <td class="reason">
+                                    Insufficient available funds
+                                </td>
+
+                                <td>
+                                    <span class="status">
+                                        REJECTED
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button
+                                        class="details-btn"
+                                        onclick="showDetails('REJ3001','Reliance','Insufficient available funds')">
+                                        Details
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+                            <!-- ROW 2 -->
+                            <tr
+                                class="rejection-row"
+                                data-type="price">
+
+                                <td class="date">
+                                    18 Sep 2026
+                                </td>
+
+                                <td class="order-id">
+                                    #REJ3002
+                                </td>
+
+                                <td class="stock">
+                                    TCS
+                                </td>
+
+                                <td class="side-buy">
+                                    BUY
+                                </td>
+
+                                <td>
+                                    10
+                                </td>
+
+                                <td>
+                                    ₹4,120
+                                </td>
+
+                                <td class="reason">
+                                    Price outside permitted range
+                                </td>
+
+                                <td>
+                                    <span class="status">
+                                        REJECTED
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button
+                                        class="details-btn"
+                                        onclick="showDetails('REJ3002','TCS','Price outside permitted range')">
+                                        Details
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+                            <!-- ROW 3 -->
+                            <tr
+                                class="rejection-row"
+                                data-type="funds">
+
+                                <td class="date">
+                                    15 Sep 2026
+                                </td>
+
+                                <td class="order-id">
+                                    #REJ3003
+                                </td>
+
+                                <td class="stock">
+                                    HDFC Bank
+                                </td>
+
+                                <td class="side-buy">
+                                    BUY
+                                </td>
+
+                                <td>
+                                    30
+                                </td>
+
+                                <td>
+                                    ₹1,745
+                                </td>
+
+                                <td class="reason">
+                                    Insufficient available funds
+                                </td>
+
+                                <td>
+                                    <span class="status">
+                                        REJECTED
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button
+                                        class="details-btn"
+                                        onclick="showDetails('REJ3003','HDFC Bank','Insufficient available funds')">
+                                        Details
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+                            <!-- ROW 4 -->
+                            <tr
+                                class="rejection-row"
+                                data-type="other">
+
+                                <td class="date">
+                                    12 Sep 2026
+                                </td>
+
+                                <td class="order-id">
+                                    #REJ3004
+                                </td>
+
+                                <td class="stock">
+                                    Infosys
+                                </td>
+
+                                <td class="side-sell">
+                                    SELL
+                                </td>
+
+                                <td>
+                                    15
+                                </td>
+
+                                <td>
+                                    ₹1,520
+                                </td>
+
+                                <td class="reason">
+                                    Quantity not available
+                                </td>
+
+                                <td>
+                                    <span class="status">
+                                        REJECTED
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button
+                                        class="details-btn"
+                                        onclick="showDetails('REJ3004','Infosys','Quantity not available')">
+                                        Details
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <div
+                    class="no-result"
+                    id="noResult">
+
+                    No rejected orders found.
+
+                </div>
+
+
+                <div class="card-footer">
+
+                    Showing demo rejection records.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        /* USER INITIAL */
+
+        const savedUser =
+            localStorage.getItem("loggedInUser");
+
+        if(savedUser){
+
+            try{
+
+                const user =
+                    JSON.parse(savedUser);
+
+                const fullName =
+                    user.fullName ||
+                    user.username ||
+                    "User";
+
+                const initials =
+                    fullName
+                    .trim()
+                    .split(/\s+/)
+                    .map(word => word.charAt(0))
+                    .join("")
+                    .substring(0,2)
+                    .toUpperCase();
+
+                document.getElementById("userInitial")
+                    .textContent =
+                    initials || "U";
+
+            }
+            catch(error){
+
+                console.log(
+                    "User information unavailable."
+                );
+
+            }
+
+        }
+
+
+        /* SEARCH */
+
+        function searchRejections(){
+
+            const search =
+                document.getElementById("searchInput")
+                .value
+                .toLowerCase()
+                .trim();
+
+            const rows =
+                document.querySelectorAll(".rejection-row");
+
+            let found = false;
+
+            rows.forEach(row => {
+
+                const text =
+                    row.textContent.toLowerCase();
+
+                if(text.includes(search)){
+
+                    row.style.display = "";
+                    found = true;
+
+                }
+                else{
+
+                    row.style.display = "none";
+
+                }
+
+            });
+
+            document.getElementById("noResult")
+                .style.display =
+                found ? "none" : "block";
+
+        }
+
+
+        /* FILTER */
+
+        function filterRejections(type, button){
+
+            const rows =
+                document.querySelectorAll(".rejection-row");
+
+            const buttons =
+                document.querySelectorAll(".filter-btn");
+
+            buttons.forEach(btn => {
+                btn.classList.remove("active");
+            });
+
+            button.classList.add("active");
+
+            let found = false;
+
+            rows.forEach(row => {
+
+                const rowType =
+                    row.getAttribute("data-type");
+
+                if(
+                    type === "all" ||
+                    type === rowType
+                ){
+
+                    row.style.display = "";
+                    found = true;
+
+                }
+                else{
+
+                    row.style.display = "none";
+
+                }
+
+            });
+
+            document.getElementById("noResult")
+                .style.display =
+                found ? "none" : "block";
+
+        }
+
+
+        /* DETAILS */
+
+        function showDetails(
+            orderId,
+            stock,
+            reason
+        ){
+
+            alert(
+                "Rejection Details\n\n" +
+                "Order ID: " + orderId + "\n" +
+                "Stock: " + stock + "\n" +
+                "Reason: " + reason +
+                "\n\nThis is a demo interface."
+            );
+
+        }
+
+
+        /* LOGOUT */
+
+        function logoutUser(){
+
+            localStorage.removeItem(
+                "loggedInUser"
+            );
+
+            window.location.href =
+                "index.html";
+
+        }
+
+    </script>
+
+</body>
+</html>

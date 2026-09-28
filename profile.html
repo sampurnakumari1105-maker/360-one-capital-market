@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - 360 ONE CAPITAL MARKET</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f5faf7;
+            color:#173b2b;
+        }
+
+        .sidebar{
+            position:fixed;
+            left:0;
+            top:0;
+            width:240px;
+            height:100vh;
+            background:#ffffff;
+            border-right:1px solid #dfe9e3;
+            padding:22px 16px;
+            z-index:100;
+        }
+
+        .brand{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            padding:0 8px 28px;
+            border-bottom:1px solid #e5eee9;
+        }
+
+        .logo{
+            width:42px;
+            height:42px;
+            border-radius:50%;
+            background:#087f3d;
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:14px;
+            font-weight:800;
+        }
+
+        .brand-text{
+            font-size:15px;
+            font-weight:800;
+            color:#173b2b;
+        }
+
+        .brand-text span{
+            display:block;
+            color:#087f3d;
+            font-size:11px;
+            margin-top:3px;
+        }
+
+        .nav{
+            margin-top:24px;
+        }
+
+        .nav a{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            padding:12px 13px;
+            margin-bottom:6px;
+            text-decoration:none;
+            color:#61736a;
+            border-radius:9px;
+            font-size:14px;
+            font-weight:600;
+        }
+
+        .nav a:hover{
+            background:#edf8f1;
+            color:#087f3d;
+        }
+
+        .nav a.active{
+            background:#e7f6ed;
+            color:#087f3d;
+        }
+
+        .nav-icon{
+            width:22px;
+            text-align:center;
+            font-size:17px;
+        }
+
+        .logout{
+            position:absolute;
+            bottom:22px;
+            left:16px;
+            right:16px;
+        }
+
+        .logout button{
+            width:100%;
+            padding:12px;
+            border:1px solid #dbe8df;
+            background:white;
+            border-radius:9px;
+            color:#d14c4c;
+            font-weight:700;
+            cursor:pointer;
+        }
+
+        .logout button:hover{
+            background:#fff3f3;
+        }
+
+        .main{
+            margin-left:240px;
+            min-height:100vh;
+        }
+
+        .topbar{
+            height:72px;
+            background:white;
+            border-bottom:1px solid #e2ebe6;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:0 32px;
+        }
+
+        .page-title{
+            font-size:21px;
+            font-weight:800;
+            color:#173b2b;
+        }
+
+        .page-subtitle{
+            font-size:12px;
+            color:#7b8c84;
+            margin-top:4px;
+        }
+
+        .top-user{
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+
+        .user{
+            width:40px;
+            height:40px;
+            border-radius:50%;
+            background:#087f3d;
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:13px;
+            font-weight:800;
+        }
+
+        .content{
+            padding:30px;
+        }
+
+        .profile-grid{
+            display:grid;
+            grid-template-columns:320px 1fr;
+            gap:24px;
+        }
+
+        .card{
+            background:white;
+            border:1px solid #e0eae4;
+            border-radius:14px;
+            padding:24px;
+            box-shadow:0 3px 12px rgba(20,70,40,0.04);
+        }
+
+        .profile-card{
+            text-align:center;
+        }
+
+        .big-avatar{
+            width:90px;
+            height:90px;
+            border-radius:50%;
+            background:#087f3d;
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            margin:0 auto 16px;
+            font-size:26px;
+            font-weight:800;
+        }
+
+        .profile-card h2{
+            font-size:20px;
+            margin-bottom:5px;
+        }
+
+        .profile-card .username{
+            color:#718178;
+            font-size:13px;
+            margin-bottom:18px;
+        }
+
+        .status{
+            display:inline-block;
+            padding:6px 13px;
+            border-radius:20px;
+            background:#e8f7ee;
+            color:#087f3d;
+            font-size:12px;
+            font-weight:700;
+        }
+
+        .profile-info{
+            margin-top:25px;
+            text-align:left;
+            border-top:1px solid #e8eee9;
+            padding-top:18px;
+        }
+
+        .info-row{
+            display:flex;
+            justify-content:space-between;
+            gap:15px;
+            padding:10px 0;
+            font-size:13px;
+        }
+
+        .info-row .label{
+            color:#7a8981;
+        }
+
+        .info-row .value{
+            font-weight:600;
+            color:#263f32;
+            text-align:right;
+        }
+
+        .section-title{
+            font-size:18px;
+            font-weight:800;
+            margin-bottom:20px;
+        }
+
+        .form-grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:18px;
+        }
+
+        .form-group{
+            display:flex;
+            flex-direction:column;
+        }
+
+        .form-group.full{
+            grid-column:1 / -1;
+        }
+
+        label{
+            font-size:13px;
+            font-weight:700;
+            margin-bottom:7px;
+            color:#40574b;
+        }
+
+        input{
+            width:100%;
+            height:43px;
+            border:1px solid #d7e3dc;
+            border-radius:8px;
+            padding:0 12px;
+            outline:none;
+            font-size:13px;
+            color:#253b31;
+            background:#fbfdfc;
+        }
+
+        input:focus{
+            border-color:#087f3d;
+            box-shadow:0 0 0 3px rgba(8,127,61,0.08);
+        }
+
+        input:disabled{
+            background:#f1f5f2;
+            color:#87938d;
+            cursor:not-allowed;
+        }
+
+        .save-btn{
+            margin-top:22px;
+            padding:12px 22px;
+            border:none;
+            border-radius:8px;
+            background:#087f3d;
+            color:white;
+            font-size:13px;
+            font-weight:700;
+            cursor:pointer;
+        }
+
+        .save-btn:hover{
+            background:#066b33;
+        }
+
+        .security-card{
+            margin-top:24px;
+        }
+
+        .security-item{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:20px;
+            padding:17px 0;
+            border-bottom:1px solid #e9efeb;
+        }
+
+        .security-item:last-child{
+            border-bottom:none;
+        }
+
+        .security-info h3{
+            font-size:14px;
+            margin-bottom:5px;
+        }
+
+        .security-info p{
+            font-size:12px;
+            color:#7b8982;
+        }
+
+        .outline-btn{
+            padding:9px 15px;
+            border:1px solid #b9d7c4;
+            background:white;
+            color:#087f3d;
+            border-radius:7px;
+            font-size:12px;
+            font-weight:700;
+            cursor:pointer;
+            white-space:nowrap;
+        }
+
+        .outline-btn:hover{
+            background:#edf8f1;
+        }
+
+        @media(max-width:1000px){
+            .sidebar{
+                width:210px;
+            }
+
+            .main{
+                margin-left:210px;
+            }
+
+            .profile-grid{
+                grid-template-columns:1fr;
+            }
+        }
+
+        @media(max-width:700px){
+            .sidebar{
+                position:relative;
+                width:100%;
+                height:auto;
+            }
+
+            .logout{
+                position:static;
+                margin-top:20px;
+            }
+
+            .main{
+                margin-left:0;
+            }
+
+            .topbar{
+                padding:0 18px;
+            }
+
+            .content{
+                padding:18px;
+            }
+
+            .form-grid{
+                grid-template-columns:1fr;
+            }
+
+            .form-group.full{
+                grid-column:auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="logo">360</div>
+
+            <div class="brand-text">
+                360 ONE
+                <span>CAPITAL MARKET</span>
+            </div>
+        </div>
+
+        <nav class="nav">
+
+            <a href="Dashboard.html">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="Watchlist.html">
+                <span class="nav-icon">★</span>
+                <span>Watchlist</span>
+            </a>
+
+            <a href="Positions.html">
+                <span class="nav-icon">◫</span>
+                <span>Positions</span>
+            </a>
+
+            <a href="orders.html">
+                <span class="nav-icon">▤</span>
+                <span>Orders</span>
+            </a>
+
+            <a href="Tradehistory.html">
+                <span class="nav-icon">↔</span>
+                <span>Trade History</span>
+            </a>
+
+            <a href="funds.html">
+                <span class="nav-icon">₹</span>
+                <span>Funds</span>
+            </a>
+
+            <a href="Withdraw.html">
+                <span class="nav-icon">↓</span>
+                <span>Withdraw</span>
+            </a>
+
+            <a href="Ledger.html">
+                <span class="nav-icon">▥</span>
+                <span>Ledger</span>
+            </a>
+
+            <!-- IMPORTANT: singular filename -->
+            <a href="Rejection.html">
+                <span class="nav-icon">⊘</span>
+                <span>Rejections</span>
+            </a>
+
+            <a href="Profile.html" class="active">
+                <span class="nav-icon">◉</span>
+                <span>Profile</span>
+            </a>
+
+            <a href="Settings.html">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+        <div class="logout">
+            <button onclick="logoutUser()">
+                ⇥ &nbsp; Logout
+            </button>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+                <div class="page-title">My Profile</div>
+                <div class="page-subtitle">
+                    Manage your account information
+                </div>
+            </div>
+
+            <div class="top-user">
+                <div class="user" id="userInitial">U</div>
+            </div>
+
+        </header>
+
+
+        <section class="content">
+
+            <div class="profile-grid">
+
+                <!-- PROFILE SUMMARY -->
+                <div class="card profile-card">
+
+                    <div class="big-avatar" id="bigAvatar">
+                        U
+                    </div>
+
+                    <h2 id="displayName">
+                        User
+                    </h2>
+
+                    <div class="username" id="displayUsername">
+                        @username
+                    </div>
+
+                    <span class="status">
+                        ● Active Account
+                    </span>
+
+                    <div class="profile-info">
+
+                        <div class="info-row">
+                            <span class="label">
+                                Account Type
+                            </span>
+
+                            <span class="value">
+                                Individual
+                            </span>
+                        </div>
+
+                        <div class="info-row">
+                            <span class="label">
+                                Account Status
+                            </span>
+
+                            <span class="value">
+                                Active
+                            </span>
+                        </div>
+
+                        <div class="info-row">
+                            <span class="label">
+                                Trading Status
+                            </span>
+
+                            <span class="value">
+                                Enabled
+                            </span>
+                        </div>
+
+                        <div class="info-row">
+                            <span class="label">
+                                Member Since
+                            </span>
+
+                            <span class="value">
+                                September 2026
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PERSONAL INFORMATION -->
+                <div>
+
+                    <div class="card">
+
+                        <div class="section-title">
+                            Personal Information
+                        </div>
+
+                        <form onsubmit="saveProfile(event)">
+
+                            <div class="form-grid">
+
+                                <div class="form-group">
+                                    <label>
+                                        Full Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="fullName"
+                                        placeholder="Enter full name"
+                                        required
+                                    >
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>
+                                        Username
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="username"
+                                        placeholder="Enter username"
+                                        disabled
+                                    >
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>
+                                        Email Address
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        placeholder="Enter email"
+                                        required
+                                    >
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>
+                                        Mobile Number
+                                    </label>
+
+                                    <input
+                                        type="tel"
+                                        id="mobile"
+                                        placeholder="Enter mobile number"
+                                    >
+                                </div>
+
+
+                                <div class="form-group full">
+                                    <label>
+                                        Address
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="address"
+                                        placeholder="Enter your address"
+                                    >
+                                </div>
+
+                            </div>
+
+                            <button
+                                type="submit"
+                                class="save-btn"
+                            >
+                                SAVE CHANGES
+                            </button>
+
+                        </form>
+
+                    </div>
+
+
+                    <!-- SECURITY -->
+                    <div class="card security-card">
+
+                        <div class="section-title">
+                            Account Security
+                        </div>
+
+                        <div class="security-item">
+
+                            <div class="security-info">
+                                <h3>Password</h3>
+                                <p>
+                                    Keep your account password secure.
+                                </p>
+                            </div>
+
+                            <button
+                                class="outline-btn"
+                                onclick="changePassword()"
+                            >
+                                Change Password
+                            </button>
+
+                        </div>
+
+
+                        <div class="security-item">
+
+                            <div class="security-info">
+                                <h3>Login Sessions</h3>
+                                <p>
+                                    Manage active login sessions.
+                                </p>
+                            </div>
+
+                            <button
+                                class="outline-btn"
+                                onclick="viewSessions()"
+                            >
+                                View Sessions
+                            </button>
+
+                        </div>
+
+
+                        <div class="security-item">
+
+                            <div class="security-info">
+                                <h3>Two-Factor Authentication</h3>
+                                <p>
+                                    Add an extra layer of account security.
+                                </p>
+                            </div>
+
+                            <button
+                                class="outline-btn"
+                                onclick="enable2FA()"
+                            >
+                                Enable
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+        let currentUser = null;
+
+        // Helper to update UI elements
+        function updateProfileUI(user) {
+            if (!user) return;
+            currentUser = user;
+
+            const fullName = user.fullName || user.username || "User";
+            const username = user.username || "username";
+            const email = user.email || "";
+            const mobile = user.mobile || "";
+            const address = user.address || "";
+
+            /* DISPLAY LABELS */
+            document.getElementById("displayName").textContent = fullName;
+            document.getElementById("displayUsername").textContent = "@" + username;
+
+            /* FORM INPUTS */
+            document.getElementById("fullName").value = fullName;
+            document.getElementById("username").value = username;
+            document.getElementById("email").value = email;
+            if (document.getElementById("mobile")) {
+                document.getElementById("mobile").value = mobile;
+            }
+            if (document.getElementById("address")) {
+                document.getElementById("address").value = address;
+            }
+
+            /* INITIALS */
+            const initials = fullName
+                .trim()
+                .split(/\s+/)
+                .map(word => word.charAt(0))
+                .join("")
+                .substring(0, 2)
+                .toUpperCase();
+
+            document.getElementById("userInitial").textContent = initials || "U";
+            document.getElementById("bigAvatar").textContent = initials || "U";
+        }
+
+        /* LOAD USER FROM MONGODB */
+        document.addEventListener("DOMContentLoaded", async function() {
+            const token = localStorage.getItem("authToken");
+
+            // Try loading from localStorage immediately for fast display
+            const savedUser = localStorage.getItem("loggedInUser");
+            if (savedUser) {
+                try {
+                    updateProfileUI(JSON.parse(savedUser));
+                } catch(e) {}
+            }
+
+            if (!token) {
+                // If no token, redirect to login page
+                window.location.href = "index.html";
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/user/profile', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    updateProfileUI(data.user);
+                    localStorage.setItem("loggedInUser", JSON.stringify(data.user));
+                } else {
+                    // Token invalid or expired
+                    localStorage.removeItem("authToken");
+                    localStorage.removeItem("loggedInUser");
+                    window.location.href = "index.html";
+                }
+            } catch (error) {
+                console.error("Error fetching user profile:", error);
+            }
+        });
+
+        /* SAVE PROFILE TO MONGODB */
+        async function saveProfile(event) {
+            event.preventDefault();
+
+            const token = localStorage.getItem("authToken");
+            if (!token) {
+                alert("Session expired. Please login again.");
+                window.location.href = "index.html";
+                return;
+            }
+
+            const fullName = document.getElementById("fullName").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const mobile = document.getElementById("mobile") ? document.getElementById("mobile").value.trim() : "";
+            const address = document.getElementById("address") ? document.getElementById("address").value.trim() : "";
+
+            if (!fullName || !email) {
+                alert("Please fill all required fields.");
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/user/profile', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify({ fullName, email, mobile, address })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    updateProfileUI(data.user);
+                    localStorage.setItem("loggedInUser", JSON.stringify(data.user));
+                    alert("Profile updated successfully!");
+                } else {
+                    alert(data.message || "Failed to update profile.");
+                }
+            } catch (error) {
+                console.error("Error saving profile:", error);
+                alert("Unable to save profile. Please check server connection.");
+            }
+        }
+
+        /* SECURITY DEMO FUNCTIONS */
+        function changePassword() {
+            alert("Change Password\n\nThis feature is available in the security settings.");
+        }
+
+        function viewSessions() {
+            alert("Login Sessions\n\nActive session connected via MongoDB authentication.");
+        }
+
+        function enable2FA() {
+            alert("Two-Factor Authentication\n\n2FA settings can be configured in your account settings.");
+        }
+
+        /* LOGOUT */
+        async function logoutUser() {
+            const token = localStorage.getItem("authToken");
+            try {
+                await fetch('/api/auth/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + (token || '')
+                    }
+                });
+            } catch(e) {}
+
+            localStorage.removeItem("authToken");
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+</html>

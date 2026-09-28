@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Orders | 360 ONE CAPITAL MARKET</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f5f8f6;
+    color:#1f2937;
+}
+
+/* SIDEBAR */
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:240px;
+    height:100vh;
+    background:#fff;
+    border-right:1px solid #e2e8e4;
+    padding:22px 15px;
+    z-index:10;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:5px 10px 28px;
+    border-bottom:1px solid #edf1ee;
+    margin-bottom:20px;
+}
+
+.logo-circle{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#0a8f4d;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    font-size:14px;
+}
+
+.logo-text{
+    font-size:15px;
+    font-weight:bold;
+    color:#116b3d;
+    line-height:1.2;
+}
+
+.nav a{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    text-decoration:none;
+    color:#64748b;
+    padding:13px 14px;
+    border-radius:9px;
+    margin-bottom:6px;
+    font-size:14px;
+    transition:.2s;
+}
+
+.nav a:hover{
+    background:#edf8f2;
+    color:#087a40;
+}
+
+.nav a.active{
+    background:#e5f6ec;
+    color:#078044;
+    font-weight:600;
+}
+
+.icon{
+    width:20px;
+    text-align:center;
+    font-size:17px;
+}
+
+/* MAIN */
+.main{
+    margin-left:240px;
+    min-height:100vh;
+}
+
+/* TOPBAR */
+.topbar{
+    height:70px;
+    background:#fff;
+    border-bottom:1px solid #e5ebe7;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+}
+
+.page-title{
+    font-size:21px;
+    font-weight:700;
+    color:#17251d;
+}
+
+.top-right{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.market-status{
+    font-size:13px;
+    color:#078044;
+    background:#e9f8ef;
+    padding:8px 12px;
+    border-radius:20px;
+}
+
+.user{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:#0a8f4d;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    font-weight:bold;
+}
+
+/* CONTENT */
+.content{
+    padding:28px 30px;
+}
+
+.heading-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:22px;
+}
+
+.heading-row h1{
+    font-size:25px;
+    color:#17251d;
+}
+
+.heading-row p{
+    margin-top:5px;
+    color:#718078;
+    font-size:14px;
+}
+
+.refresh-btn{
+    border:1px solid #0a8f4d;
+    background:#fff;
+    color:#078044;
+    padding:10px 16px;
+    border-radius:7px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.refresh-btn:hover{
+    background:#eaf8f0;
+}
+
+/* SUMMARY */
+.summary{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:25px;
+}
+
+.card{
+    background:#fff;
+    border:1px solid #e3eae5;
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 2px 7px rgba(0,0,0,.03);
+}
+
+.card-title{
+    font-size:13px;
+    color:#738078;
+    margin-bottom:10px;
+}
+
+.card-value{
+    font-size:23px;
+    font-weight:bold;
+    color:#18241d;
+}
+
+.green{
+    color:#078044;
+}
+
+.red{
+    color:#d14343;
+}
+
+/* ORDER BOX */
+.order-box{
+    background:#fff;
+    border:1px solid #e3eae5;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 2px 7px rgba(0,0,0,.03);
+}
+
+.order-header{
+    padding:20px 22px;
+    border-bottom:1px solid #edf1ee;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.order-header h2{
+    font-size:18px;
+}
+
+.tabs{
+    display:flex;
+    gap:8px;
+}
+
+.tab{
+    border:1px solid #d9e3dc;
+    background:#fff;
+    padding:8px 15px;
+    border-radius:6px;
+    color:#64748b;
+    cursor:pointer;
+    font-size:13px;
+}
+
+.tab:hover,
+.tab.active{
+    background:#e8f7ee;
+    color:#078044;
+    border-color:#b8dfc8;
+}
+
+/* SEARCH */
+.search-area{
+    padding:18px 22px;
+    border-bottom:1px solid #edf1ee;
+}
+
+.search{
+    width:300px;
+    max-width:100%;
+    height:40px;
+    border:1px solid #dce5df;
+    border-radius:7px;
+    padding:0 13px;
+    outline:none;
+    font-size:13px;
+}
+
+.search:focus{
+    border-color:#0a8f4d;
+}
+
+/* TABLE */
+.table-container{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1000px;
+}
+
+thead{
+    background:#f7faf8;
+}
+
+th{
+    text-align:left;
+    padding:14px 18px;
+    font-size:12px;
+    color:#718078;
+    font-weight:600;
+    border-bottom:1px solid #e7ece9;
+}
+
+td{
+    padding:17px 18px;
+    font-size:13px;
+    border-bottom:1px solid #edf1ee;
+    color:#344139;
+}
+
+tbody tr:hover{
+    background:#fbfdfc;
+}
+
+.stock-name{
+    font-weight:600;
+    color:#17251d;
+}
+
+.symbol{
+    display:block;
+    color:#89958d;
+    font-size:11px;
+    margin-top:4px;
+}
+
+.buy{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:5px;
+    background:#e8f7ee;
+    color:#078044;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.sell{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:5px;
+    background:#fff0f0;
+    color:#d14343;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.status{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:5px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.completed{
+    background:#e8f7ee;
+    color:#078044;
+}
+
+.pending{
+    background:#fff8df;
+    color:#9a7200;
+}
+
+.cancelled{
+    background:#fff0f0;
+    color:#d14343;
+}
+
+.action-btn{
+    border:1px solid #d4ded7;
+    background:#fff;
+    color:#344139;
+    padding:7px 11px;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:12px;
+}
+
+.action-btn:hover{
+    background:#f2f7f4;
+}
+
+.cancel-btn{
+    border-color:#e7bcbc;
+    color:#d14343;
+}
+
+.cancel-btn:hover{
+    background:#fff2f2;
+}
+
+/* EMPTY */
+.empty{
+    display:none;
+    text-align:center;
+    padding:45px;
+    color:#78847c;
+}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+
+    .sidebar{
+        width:210px;
+    }
+
+    .main{
+        margin-left:210px;
+    }
+
+    .summary{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:750px){
+
+    .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+    }
+
+    .nav{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .topbar{
+        padding:0 18px;
+    }
+
+    .content{
+        padding:20px 15px;
+    }
+
+    .summary{
+        grid-template-columns:1fr;
+    }
+
+    .heading-row{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+    .order-header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+    .tabs{
+        flex-wrap:wrap;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-circle">
+            360
+        </div>
+
+        <div class="logo-text">
+            360 ONE<br>
+            CAPITAL MARKET
+        </div>
+
+    </div>
+
+    <nav class="nav">
+
+        <a href="Dashboard.html">
+            <span class="icon">⌂</span>
+            Dashboard
+        </a>
+
+        <a href="Watchlist.html">
+            <span class="icon">☆</span>
+            Watchlist
+        </a>
+
+        <a href="Positions.html">
+            <span class="icon">▣</span>
+            Positions
+        </a>
+
+        <a href="orders.html" class="active">
+            <span class="icon">☷</span>
+            Orders
+        </a>
+
+        <a href="Tradehistory.html">
+            <span class="icon">↔</span>
+            Trade History
+        </a>
+
+        <a href="funds.html">
+            <span class="icon">₹</span>
+            Funds
+        </a>
+
+        <a href="Withdraw.html">
+            <span class="icon">↓</span>
+            Withdraw
+        </a>
+
+        <a href="Ledger.html">
+            <span class="icon">▤</span>
+            Ledger
+        </a>
+
+        <a href="Rejection.html">
+            <span class="icon">!</span>
+            Rejections
+        </a>
+
+        <a href="Profile.html">
+            <span class="icon">◯</span>
+            Profile
+        </a>
+
+        <a href="Settings.html">
+            <span class="icon">⚙</span>
+            Settings
+        </a>
+
+        <a href="#" onclick="logoutUser()">
+            <span class="icon">⇥</span>
+            Logout
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<!-- MAIN -->
+<main class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+
+        <div class="page-title">
+            Orders
+        </div>
+
+        <div class="top-right">
+
+            <div class="market-status">
+                ● Market Open
+            </div>
+
+            <div class="user" id="userInitial">
+                U
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- CONTENT -->
+    <section class="content">
+
+        <div class="heading-row">
+
+            <div>
+                <h1>My Orders</h1>
+
+                <p>
+                    Track and manage your trading orders
+                </p>
+            </div>
+
+            <button
+                class="refresh-btn"
+                onclick="refreshOrders()">
+                ↻ Refresh
+            </button>
+
+        </div>
+
+
+        <!-- SUMMARY -->
+        <div class="summary">
+
+            <div class="card">
+
+                <div class="card-title">
+                    Total Orders
+                </div>
+
+                <div class="card-value">
+                    8
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    Completed
+                </div>
+
+                <div class="card-value green">
+                    5
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    Pending
+                </div>
+
+                <div class="card-value">
+                    2
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    Cancelled
+                </div>
+
+                <div class="card-value red">
+                    1
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ORDERS -->
+        <div class="order-box">
+
+            <div class="order-header">
+
+                <h2>Order Book</h2>
+
+                <div class="tabs">
+
+                    <button
+                        class="tab active"
+                        onclick="filterOrders('all', this)">
+                        All
+                    </button>
+
+                    <button
+                        class="tab"
+                        onclick="filterOrders('completed', this)">
+                        Completed
+                    </button>
+
+                    <button
+                        class="tab"
+                        onclick="filterOrders('pending', this)">
+                        Pending
+                    </button>
+
+                    <button
+                        class="tab"
+                        onclick="filterOrders('cancelled', this)">
+                        Cancelled
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- SEARCH -->
+            <div class="search-area">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="search"
+                    placeholder="Search by stock or order ID..."
+                    onkeyup="searchOrders()">
+
+            </div>
+
+
+            <!-- TABLE -->
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Order ID</th>
+                            <th>Instrument</th>
+                            <th>Type</th>
+                            <th>Qty</th>
+                            <th>Order Price</th>
+                            <th>Executed Price</th>
+                            <th>Status</th>
+                            <th>Time</th>
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="orderTable">
+
+                        <tr
+                            class="order-row"
+                            data-status="completed">
+
+                            <td>#ORD1001</td>
+
+                            <td>
+                                <span class="stock-name">
+                                    Reliance Industries
+                                </span>
+
+                                <span class="symbol">
+                                    RELIANCE
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="buy">
+                                    BUY
+                                </span>
+                            </td>
+
+                            <td>25</td>
+
+                            <td>₹2,480.00</td>
+
+                            <td>₹2,481.20</td>
+
+                            <td>
+                                <span class="status completed">
+                                    Completed
+                                </span>
+                            </td>
+
+                            <td>10:24 AM</td>
+
+                            <td>
+                                <button
+                                    class="action-btn"
+                                    onclick="viewOrder('ORD1001')">
+                                    Details
+                                </button>
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            class="order-row"
+                            data-status="completed">
+
+                            <td>#ORD1002</td>
+
+                            <td>
+                                <span class="stock-name">
+                                    TCS
+                                </span>
+
+                                <span class="symbol">
+                                    TCS
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="buy">
+                                    BUY
+                                </span>
+                            </td>
+
+                            <td>15</td>
+
+                            <td>₹3,720.00</td>
+
+                            <td>₹3,721.50</td>
+
+                            <td>
+                                <span class="status completed">
+                                    Completed
+                                </span>
+                            </td>
+
+                            <td>10:42 AM</td>
+
+                            <td>
+                                <button
+                                    class="action-btn"
+                                    onclick="viewOrder('ORD1002')">
+                                    Details
+                                </button>
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            class="order-row"
+                            data-status="pending">
+
+                            <td>#ORD1003</td>
+
+                            <td>
+                                <span class="stock-name">
+                                    HDFC Bank
+                                </span>
+
+                                <span class="symbol">
+                                    HDFCBANK
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="sell">
+                                    SELL
+                                </span>
+                            </td>
+
+                            <td>30</td>
+
+                            <td>₹1,685.00</td>
+
+                            <td>₹1,685.00</td>
+
+                            <td>
+                                <span class="status pending">
+                                    Pending
+                                </span>
+                            </td>
+
+                            <td>11:05 AM</td>
+
+                            <td>
+                                <button
+                                    class="action-btn cancel-btn"
+                                    onclick="cancelOrder('ORD1003')">
+                                    Cancel
+                                </button>
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            class="order-row"
+                            data-status="completed">
+
+                            <td>#ORD1004</td>
+
+                            <td>
+                                <span class="stock-name">
+                                    Infosys
+                                </span>
+
+                                <span class="symbol">
+                                    INFY
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="buy">
+                                    BUY
+                                </span>
+                            </td>
+
+                            <td>40</td>
+
+                            <td>₹1,490.00</td>
+
+                            <td>₹1,492.25</td>
+
+                            <td>
+                                <span class="status completed">
+                                    Completed
+                                </span>
+                            </td>
+
+                            <td>11:26 AM</td>
+
+                            <td>
+                                <button
+                                    class="action-btn"
+                                    onclick="viewOrder('ORD1004')">
+                                    Details
+                                </button>
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            class="order-row"
+                            data-status="pending">
+
+                            <td>#ORD1005</td>
+
+                            <td>
+                                <span class="stock-name">
+                                    ITC
+                                </span>
+
+                                <span class="symbol">
+                                    ITC
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="buy">
+                                    BUY
+                                </span>
+                            </td>
+
+                            <td>35</td>
+
+                            <td>₹450.00</td>
+
+                            <td>₹450.00</td>
+
+                            <td>
+                                <span class="status pending">
+                                    Pending
+                                </span>
+                            </td>
+
+                            <td>12:10 PM</td>
+
+                            <td>
+                                <button
+                                    class="action-btn cancel-btn"
+                                    onclick="cancelOrder('ORD1005')">
+                                    Cancel
+                                </button>
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            class="order-row"
+                            data-status="cancelled">
+
+                            <td>#ORD1006</td>
+
+                            <td>
+                                <span class="stock-name">
+                                    ICICI Bank
+                                </span>
+
+                                <span class="symbol">
+                                    ICICIBANK
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="sell">
+                                    SELL
+                                </span>
+                            </td>
+
+                            <td>20</td>
+
+                            <td>₹1,420.00</td>
+
+                            <td>—</td>
+
+                            <td>
+                                <span class="status cancelled">
+                                    Cancelled
+                                </span>
+                            </td>
+
+                            <td>12:35 PM</td>
+
+                            <td>
+                                <button
+                                    class="action-btn"
+                                    onclick="viewOrder('ORD1006')">
+                                    Details
+                                </button>
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            class="order-row"
+                            data-status="completed">
+
+                            <td>#ORD1007</td>
+
+                            <td>
+                                <span class="stock-name">
+                                    Hindalco Industries
+                                </span>
+
+                                <span class="symbol">
+                                    HINDALCO
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="buy">
+                                    BUY
+                                </span>
+                            </td>
+
+                            <td>50</td>
+
+                            <td>₹690.00</td>
+
+                            <td>₹691.10</td>
+
+                            <td>
+                                <span class="status completed">
+                                    Completed
+                                </span>
+                            </td>
+
+                            <td>01:05 PM</td>
+
+                            <td>
+                                <button
+                                    class="action-btn"
+                                    onclick="viewOrder('ORD1007')">
+                                    Details
+                                </button>
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            class="order-row"
+                            data-status="completed">
+
+                            <td>#ORD1008</td>
+
+                            <td>
+                                <span class="stock-name">
+                                    Adani Enterprises
+                                </span>
+
+                                <span class="symbol">
+                                    ADANIENT
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="sell">
+                                    SELL
+                                </span>
+                            </td>
+
+                            <td>10</td>
+
+                            <td>₹2,510.00</td>
+
+                            <td>₹2,507.80</td>
+
+                            <td>
+                                <span class="status completed">
+                                    Completed
+                                </span>
+                            </td>
+
+                            <td>01:40 PM</td>
+
+                            <td>
+                                <button
+                                    class="action-btn"
+                                    onclick="viewOrder('ORD1008')">
+                                    Details
+                                </button>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+
+                <div
+                    class="empty"
+                    id="emptyMessage">
+
+                    No orders found.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+/* USER INITIALS */
+
+const savedUser =
+    localStorage.getItem("loggedInUser");
+
+if(savedUser){
+
+    try{
+
+        const user =
+            JSON.parse(savedUser);
+
+        const fullName =
+            user.fullName ||
+            user.username ||
+            "User";
+
+        const initials =
+            fullName
+            .trim()
+            .split(/\s+/)
+            .map(word => word.charAt(0))
+            .join("")
+            .substring(0,2)
+            .toUpperCase();
+
+        document.getElementById("userInitial")
+            .textContent =
+            initials || "U";
+
+    }
+    catch(error){
+
+        console.log(
+            "User information unavailable."
+        );
+
+    }
+}
+
+
+/* FILTER ORDERS */
+
+function filterOrders(type, button){
+
+    const rows =
+        document.querySelectorAll(".order-row");
+
+    const buttons =
+        document.querySelectorAll(".tab");
+
+    buttons.forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    let visible = 0;
+
+    rows.forEach(row => {
+
+        const status =
+            row.getAttribute("data-status");
+
+        if(
+            type === "all" ||
+            type === status
+        ){
+
+            row.style.display = "";
+            visible++;
+
+        }
+        else{
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+    document.getElementById("emptyMessage")
+        .style.display =
+        visible === 0 ? "block" : "none";
+}
+
+
+/* SEARCH ORDERS */
+
+function searchOrders(){
+
+    const search =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const rows =
+        document.querySelectorAll(".order-row");
+
+    let visible = 0;
+
+    rows.forEach(row => {
+
+        const text =
+            row.textContent.toLowerCase();
+
+        if(text.includes(search)){
+
+            row.style.display = "";
+            visible++;
+
+        }
+        else{
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+    document.getElementById("emptyMessage")
+        .style.display =
+        visible === 0 ? "block" : "none";
+}
+
+
+/* ORDER DETAILS */
+
+function viewOrder(orderId){
+
+    alert(
+        "Order Details\n\n" +
+        "Order ID: #" + orderId +
+        "\n\nThis is a demo interface. " +
+        "No real trading order is processed."
+    );
+
+}
+
+
+/* CANCEL ORDER */
+
+function cancelOrder(orderId){
+
+    const confirmation =
+        confirm(
+            "Are you sure you want to cancel " +
+            "#" + orderId + "?"
+        );
+
+    if(confirmation){
+
+        alert(
+            "#" + orderId +
+            " has been cancelled successfully.\n\n" +
+            "This is a demo interface."
+        );
+
+    }
+
+}
+
+
+/* REFRESH */
+
+function refreshOrders(){
+
+    alert(
+        "Orders refreshed successfully.\n\n" +
+        "This is demo order data."
+    );
+
+}
+
+
+/* LOGOUT */
+
+function logoutUser(){
+
+    localStorage.removeItem(
+        "loggedInUser"
+    );
+
+    window.location.href =
+        "index.html";
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw Funds | 360 ONE CAPITAL MARKET</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f5f8f6;
+            color:#1d2b24;
+        }
+
+        /* SIDEBAR */
+        .sidebar{
+            position:fixed;
+            left:0;
+            top:0;
+            width:245px;
+            height:100vh;
+            background:#ffffff;
+            border-right:1px solid #e2ebe5;
+            padding:20px 15px;
+            z-index:10;
+        }
+
+        .logo{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            padding:8px 10px 25px;
+            border-bottom:1px solid #e8eee9;
+        }
+
+        .logo-circle{
+            width:42px;
+            height:42px;
+            border-radius:50%;
+            background:#0b8f55;
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:14px;
+            font-weight:bold;
+        }
+
+        .logo-text{
+            font-size:14px;
+            font-weight:700;
+            color:#17382a;
+            line-height:1.2;
+        }
+
+        .nav{
+            margin-top:22px;
+        }
+
+        .nav a{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            text-decoration:none;
+            color:#66736c;
+            padding:12px 14px;
+            margin-bottom:5px;
+            border-radius:8px;
+            font-size:14px;
+            transition:.2s;
+        }
+
+        .nav a:hover{
+            background:#eef8f2;
+            color:#07864e;
+        }
+
+        .nav a.active{
+            background:#e8f7ef;
+            color:#07864e;
+            font-weight:600;
+        }
+
+        .nav-icon{
+            width:22px;
+            text-align:center;
+            font-size:17px;
+        }
+
+        .logout{
+            position:absolute;
+            bottom:20px;
+            left:15px;
+            right:15px;
+        }
+
+        .logout a{
+            color:#d94b4b;
+        }
+
+        .logout a:hover{
+            background:#fff1f1;
+            color:#d33d3d;
+        }
+
+        /* MAIN */
+        .main{
+            margin-left:245px;
+            min-height:100vh;
+        }
+
+        /* TOPBAR */
+        .topbar{
+            height:70px;
+            background:white;
+            border-bottom:1px solid #e2ebe5;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:0 30px;
+        }
+
+        .page-title{
+            font-size:21px;
+            font-weight:700;
+            color:#18382a;
+        }
+
+        .top-right{
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+
+        .notification{
+            width:38px;
+            height:38px;
+            border-radius:50%;
+            background:#f1f6f3;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:17px;
+        }
+
+        .user{
+            width:38px;
+            height:38px;
+            border-radius:50%;
+            background:#0b8f55;
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:13px;
+            font-weight:bold;
+        }
+
+        /* CONTENT */
+        .content{
+            padding:30px;
+        }
+
+        .breadcrumb{
+            color:#7b8780;
+            font-size:13px;
+            margin-bottom:25px;
+        }
+
+        .breadcrumb span{
+            color:#0b8f55;
+        }
+
+        .withdraw-layout{
+            display:grid;
+            grid-template-columns:1fr 360px;
+            gap:25px;
+            max-width:1100px;
+        }
+
+        .card{
+            background:white;
+            border:1px solid #e1eae4;
+            border-radius:12px;
+            padding:25px;
+            box-shadow:0 2px 8px rgba(20,60,40,.04);
+        }
+
+        .card h2{
+            font-size:20px;
+            margin-bottom:7px;
+            color:#18382a;
+        }
+
+        .subtitle{
+            color:#7b8780;
+            font-size:13px;
+            margin-bottom:25px;
+        }
+
+        /* BALANCE */
+        .balance-box{
+            background:#eef9f3;
+            border:1px solid #d5ecdf;
+            border-radius:10px;
+            padding:18px;
+            margin-bottom:25px;
+        }
+
+        .balance-label{
+            color:#66736c;
+            font-size:13px;
+            margin-bottom:7px;
+        }
+
+        .balance{
+            color:#07864e;
+            font-size:27px;
+            font-weight:700;
+        }
+
+        /* FORM */
+        .form-group{
+            margin-bottom:18px;
+        }
+
+        .form-group label{
+            display:block;
+            font-size:13px;
+            font-weight:600;
+            margin-bottom:7px;
+            color:#34443b;
+        }
+
+        .input{
+            width:100%;
+            height:44px;
+            border:1px solid #d5dfd9;
+            border-radius:7px;
+            padding:0 13px;
+            font-size:14px;
+            outline:none;
+            color:#25372d;
+            background:#fff;
+        }
+
+        .input:focus{
+            border-color:#0b8f55;
+            box-shadow:0 0 0 3px rgba(11,143,85,.08);
+        }
+
+        .amount-wrapper{
+            position:relative;
+        }
+
+        .amount-wrapper span{
+            position:absolute;
+            left:13px;
+            top:13px;
+            color:#65736b;
+            font-size:14px;
+        }
+
+        .amount-input{
+            padding-left:28px;
+        }
+
+        .quick-amounts{
+            display:flex;
+            gap:8px;
+            margin-top:9px;
+            flex-wrap:wrap;
+        }
+
+        .quick-amounts button{
+            border:1px solid #cfe1d6;
+            background:#f7fbf8;
+            color:#07864e;
+            padding:6px 12px;
+            border-radius:6px;
+            cursor:pointer;
+            font-size:12px;
+        }
+
+        .quick-amounts button:hover{
+            background:#e9f7ef;
+        }
+
+        .withdraw-btn{
+            width:100%;
+            height:45px;
+            border:none;
+            border-radius:7px;
+            background:#0b8f55;
+            color:white;
+            font-size:14px;
+            font-weight:600;
+            cursor:pointer;
+            margin-top:5px;
+        }
+
+        .withdraw-btn:hover{
+            background:#087a49;
+        }
+
+        .note{
+            margin-top:15px;
+            font-size:12px;
+            color:#7b8780;
+            line-height:1.6;
+        }
+
+        /* RIGHT CARD */
+        .summary-title{
+            font-size:16px;
+            font-weight:700;
+            margin-bottom:20px;
+            color:#18382a;
+        }
+
+        .summary-row{
+            display:flex;
+            justify-content:space-between;
+            padding:13px 0;
+            border-bottom:1px solid #edf1ee;
+            font-size:13px;
+        }
+
+        .summary-row:last-child{
+            border-bottom:none;
+        }
+
+        .summary-row .label{
+            color:#758078;
+        }
+
+        .summary-row .value{
+            font-weight:600;
+            color:#293b31;
+        }
+
+        .green{
+            color:#07864e !important;
+        }
+
+        .info-box{
+            margin-top:20px;
+            padding:15px;
+            background:#f5f9f6;
+            border-radius:8px;
+            font-size:12px;
+            color:#69766f;
+            line-height:1.6;
+        }
+
+        /* RECENT */
+        .recent{
+            max-width:1100px;
+            margin-top:25px;
+        }
+
+        .recent h3{
+            font-size:17px;
+            margin-bottom:15px;
+        }
+
+        .transaction{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:15px 5px;
+            border-bottom:1px solid #edf1ee;
+        }
+
+        .transaction:last-child{
+            border-bottom:none;
+        }
+
+        .transaction-left{
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+
+        .transaction-icon{
+            width:36px;
+            height:36px;
+            border-radius:50%;
+            background:#fff0f0;
+            color:#d94b4b;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+
+        .transaction-name{
+            font-size:13px;
+            font-weight:600;
+        }
+
+        .transaction-date{
+            font-size:11px;
+            color:#89948e;
+            margin-top:3px;
+        }
+
+        .transaction-amount{
+            color:#d94b4b;
+            font-size:13px;
+            font-weight:600;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:900px){
+            .withdraw-layout{
+                grid-template-columns:1fr;
+            }
+        }
+
+        @media(max-width:700px){
+            .sidebar{
+                width:70px;
+                padding:15px 10px;
+            }
+
+            .logo-text{
+                display:none;
+            }
+
+            .logo{
+                justify-content:center;
+                padding:8px 0 20px;
+            }
+
+            .nav a{
+                justify-content:center;
+                padding:12px 5px;
+            }
+
+            .nav a span:not(.nav-icon){
+                display:none;
+            }
+
+            .logout a{
+                justify-content:center;
+            }
+
+            .main{
+                margin-left:70px;
+            }
+
+            .content{
+                padding:20px 15px;
+            }
+
+            .topbar{
+                padding:0 15px;
+            }
+
+            .page-title{
+                font-size:18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-circle">360</div>
+
+            <div class="logo-text">
+                360 ONE<br>
+                CAPITAL MARKET
+            </div>
+        </div>
+
+        <nav class="nav">
+
+            <a href="Dashboard.html">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="Watchlist.html">
+                <span class="nav-icon">☆</span>
+                <span>Watchlist</span>
+            </a>
+
+            <a href="Positions.html">
+                <span class="nav-icon">◈</span>
+                <span>Positions</span>
+            </a>
+
+            <a href="orders.html">
+                <span class="nav-icon">▣</span>
+                <span>Orders</span>
+            </a>
+
+            <a href="Tradehistory.html">
+                <span class="nav-icon">↔</span>
+                <span>Trade History</span>
+            </a>
+
+            <a href="funds.html">
+                <span class="nav-icon">₹</span>
+                <span>Funds</span>
+            </a>
+
+            <a href="Withdraw.html" class="active">
+                <span class="nav-icon">↓</span>
+                <span>Withdraw</span>
+            </a>
+
+            <a href="Ledger.html">
+                <span class="nav-icon">☷</span>
+                <span>Ledger</span>
+            </a>
+
+            <a href="Rejection.html">
+                <span class="nav-icon">⊘</span>
+                <span>Rejections</span>
+            </a>
+
+            <a href="Profile.html">
+                <span class="nav-icon">♙</span>
+                <span>Profile</span>
+            </a>
+
+            <a href="Settings.html">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+        <div class="logout">
+            <a href="#" onclick="logoutUser()">
+                <span class="nav-icon">⇥</span>
+                <span>Logout</span>
+            </a>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div class="page-title">
+                Withdraw Funds
+            </div>
+
+            <div class="top-right">
+
+                <div class="notification">
+                    🔔
+                </div>
+
+                <div class="user" id="userInitial">
+                    U
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+        <section class="content">
+
+            <div class="breadcrumb">
+                Funds &nbsp; / &nbsp; <span>Withdraw</span>
+            </div>
+
+
+            <div class="withdraw-layout">
+
+                <!-- WITHDRAW FORM -->
+                <div class="card">
+
+                    <h2>Withdraw Funds</h2>
+
+                    <p class="subtitle">
+                        Transfer your available funds to your registered bank account.
+                    </p>
+
+
+                    <div class="balance-box">
+
+                        <div class="balance-label">
+                            Available Balance
+                        </div>
+
+                        <div class="balance">
+                            ₹1,25,850.00
+                        </div>
+
+                    </div>
+
+
+                    <form onsubmit="processWithdrawal(event)">
+
+                        <div class="form-group">
+
+                            <label for="bank">
+                                Select Bank Account
+                            </label>
+
+                            <select class="input" id="bank">
+
+                                <option value="">
+                                    Select your bank account
+                                </option>
+
+                                <option value="bank1">
+                                    HDFC Bank •••• 4521
+                                </option>
+
+                                <option value="bank2">
+                                    State Bank of India •••• 7812
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="amount">
+                                Withdrawal Amount
+                            </label>
+
+                            <div class="amount-wrapper">
+
+                                <span>₹</span>
+
+                                <input
+                                    type="number"
+                                    id="amount"
+                                    class="input amount-input"
+                                    placeholder="Enter amount"
+                                    min="1"
+                                >
+
+                            </div>
+
+
+                            <div class="quick-amounts">
+
+                                <button
+                                    type="button"
+                                    onclick="setAmount(5000)">
+                                    ₹5,000
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onclick="setAmount(10000)">
+                                    ₹10,000
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onclick="setAmount(25000)">
+                                    ₹25,000
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onclick="setAmount(50000)">
+                                    ₹50,000
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="remark">
+                                Remark <span style="font-weight:normal;">(Optional)</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="remark"
+                                class="input"
+                                placeholder="Enter remark"
+                            >
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="withdraw-btn">
+                            REQUEST WITHDRAWAL
+                        </button>
+
+
+                        <div class="note">
+                            Withdrawal requests are processed to your registered
+                            bank account. This is a demo interface and no real
+                            money will be transferred.
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+                <!-- SUMMARY -->
+                <div class="card">
+
+                    <div class="summary-title">
+                        Withdrawal Summary
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span class="label">
+                            Available Balance
+                        </span>
+
+                        <span class="value green">
+                            ₹1,25,850
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span class="label">
+                            Withdrawable
+                        </span>
+
+                        <span class="value">
+                            ₹1,10,000
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span class="label">
+                            Processing Fee
+                        </span>
+
+                        <span class="value">
+                            ₹0
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span class="label">
+                            Processing Time
+                        </span>
+
+                        <span class="value">
+                            1–2 Business Days
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-box">
+                        <strong>Important:</strong><br>
+                        Make sure your selected bank account is active
+                        and registered with your account. Withdrawal
+                        requests cannot be sent to an unregistered account.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RECENT WITHDRAWALS -->
+            <div class="card recent">
+
+                <h3>
+                    Recent Withdrawals
+                </h3>
+
+
+                <div class="transaction">
+
+                    <div class="transaction-left">
+
+                        <div class="transaction-icon">
+                            ↓
+                        </div>
+
+                        <div>
+                            <div class="transaction-name">
+                                Withdrawal to HDFC Bank
+                            </div>
+
+                            <div class="transaction-date">
+                                18 Sep 2026 • Completed
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="transaction-amount">
+                        -₹10,000
+                    </div>
+
+                </div>
+
+
+                <div class="transaction">
+
+                    <div class="transaction-left">
+
+                        <div class="transaction-icon">
+                            ↓
+                        </div>
+
+                        <div>
+                            <div class="transaction-name">
+                                Withdrawal to SBI
+                            </div>
+
+                            <div class="transaction-date">
+                                12 Sep 2026 • Completed
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="transaction-amount">
+                        -₹5,000
+                    </div>
+
+                </div>
+
+
+                <div class="transaction">
+
+                    <div class="transaction-left">
+
+                        <div class="transaction-icon">
+                            ↓
+                        </div>
+
+                        <div>
+                            <div class="transaction-name">
+                                Withdrawal to HDFC Bank
+                            </div>
+
+                            <div class="transaction-date">
+                                05 Sep 2026 • Completed
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="transaction-amount">
+                        -₹15,000
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        /* USER INITIAL */
+        const savedUser =
+            localStorage.getItem("loggedInUser");
+
+        if(savedUser){
+
+            try{
+
+                const user =
+                    JSON.parse(savedUser);
+
+                const fullName =
+                    user.fullName ||
+                    user.username ||
+                    "User";
+
+                const initials =
+                    fullName
+                    .trim()
+                    .split(/\s+/)
+                    .map(word => word.charAt(0))
+                    .join("")
+                    .substring(0,2)
+                    .toUpperCase();
+
+                document.getElementById("userInitial")
+                    .textContent =
+                    initials || "U";
+
+            }
+            catch(error){
+
+                console.log(
+                    "User information unavailable."
+                );
+
+            }
+
+        }
+
+
+        /* QUICK AMOUNT */
+        function setAmount(amount){
+
+            document.getElementById("amount")
+                .value = amount;
+
+        }
+
+
+        /* WITHDRAW */
+        function processWithdrawal(event){
+
+            event.preventDefault();
+
+            const bank =
+                document.getElementById("bank").value;
+
+            const amount =
+                Number(
+                    document.getElementById("amount").value
+                );
+
+            if(!bank){
+
+                alert(
+                    "Please select a bank account."
+                );
+
+                return;
+
+            }
+
+            if(!amount || amount <= 0){
+
+                alert(
+                    "Please enter a valid withdrawal amount."
+                );
+
+                return;
+
+            }
+
+            if(amount > 110000){
+
+                alert(
+                    "Maximum withdrawable amount is ₹1,10,000."
+                );
+
+                return;
+
+            }
+
+            alert(
+                "Withdrawal Request Submitted!\n\n" +
+                "Amount: ₹" +
+                amount.toLocaleString("en-IN") +
+                "\n\n" +
+                "This is a demo interface. " +
+                "No real money will be transferred."
+            );
+
+        }
+
+
+        /* LOGOUT */
+        function logoutUser(){
+
+            localStorage.removeItem(
+                "loggedInUser"
+            );
+
+            window.location.href =
+                "index.html";
+
+        }
+
+    </script>
+
+</body>
+</html>

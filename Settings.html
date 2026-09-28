@@ -1,0 +1,1076 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - 360 ONE CAPITAL MARKET</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f5faf7;
+            color:#173b2b;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar{
+            position:fixed;
+            left:0;
+            top:0;
+            width:240px;
+            height:100vh;
+            background:#ffffff;
+            border-right:1px solid #dfe9e3;
+            padding:22px 16px;
+            z-index:100;
+        }
+
+        .brand{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            padding:0 8px 28px;
+            border-bottom:1px solid #e5eee9;
+        }
+
+        .logo{
+            width:42px;
+            height:42px;
+            border-radius:50%;
+            background:#087f3d;
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:14px;
+            font-weight:800;
+        }
+
+        .brand-text{
+            font-size:15px;
+            font-weight:800;
+            color:#173b2b;
+        }
+
+        .brand-text span{
+            display:block;
+            color:#087f3d;
+            font-size:11px;
+            margin-top:3px;
+        }
+
+        .nav{
+            margin-top:24px;
+        }
+
+        .nav a{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            padding:12px 13px;
+            margin-bottom:6px;
+            text-decoration:none;
+            color:#61736a;
+            border-radius:9px;
+            font-size:14px;
+            font-weight:600;
+        }
+
+        .nav a:hover{
+            background:#edf8f1;
+            color:#087f3d;
+        }
+
+        .nav a.active{
+            background:#e7f6ed;
+            color:#087f3d;
+        }
+
+        .nav-icon{
+            width:22px;
+            text-align:center;
+            font-size:17px;
+        }
+
+        .logout{
+            position:absolute;
+            bottom:22px;
+            left:16px;
+            right:16px;
+        }
+
+        .logout button{
+            width:100%;
+            padding:12px;
+            border:1px solid #dbe8df;
+            background:white;
+            border-radius:9px;
+            color:#d14c4c;
+            font-weight:700;
+            cursor:pointer;
+        }
+
+        .logout button:hover{
+            background:#fff3f3;
+        }
+
+        /* MAIN */
+
+        .main{
+            margin-left:240px;
+            min-height:100vh;
+        }
+
+        .topbar{
+            height:72px;
+            background:white;
+            border-bottom:1px solid #e2ebe6;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:0 32px;
+        }
+
+        .page-title{
+            font-size:21px;
+            font-weight:800;
+            color:#173b2b;
+        }
+
+        .page-subtitle{
+            font-size:12px;
+            color:#7b8c84;
+            margin-top:4px;
+        }
+
+        .top-user{
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+
+        .user{
+            width:40px;
+            height:40px;
+            border-radius:50%;
+            background:#087f3d;
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:13px;
+            font-weight:800;
+        }
+
+        /* CONTENT */
+
+        .content{
+            padding:30px;
+            max-width:1100px;
+        }
+
+        .settings-card{
+            background:white;
+            border:1px solid #e0eae4;
+            border-radius:14px;
+            padding:24px;
+            margin-bottom:24px;
+            box-shadow:0 3px 12px rgba(20,70,40,0.04);
+        }
+
+        .section-title{
+            font-size:18px;
+            font-weight:800;
+            margin-bottom:5px;
+        }
+
+        .section-description{
+            font-size:12px;
+            color:#7b8982;
+            margin-bottom:20px;
+        }
+
+        /* SETTINGS ROW */
+
+        .setting-item{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:20px;
+            padding:18px 0;
+            border-bottom:1px solid #e9efeb;
+        }
+
+        .setting-item:last-child{
+            border-bottom:none;
+        }
+
+        .setting-info{
+            flex:1;
+        }
+
+        .setting-info h3{
+            font-size:14px;
+            margin-bottom:5px;
+            color:#263f32;
+        }
+
+        .setting-info p{
+            font-size:12px;
+            color:#7b8982;
+            line-height:1.5;
+        }
+
+        /* SELECT */
+
+        select{
+            width:180px;
+            height:40px;
+            border:1px solid #d7e3dc;
+            border-radius:8px;
+            padding:0 10px;
+            background:#fbfdfc;
+            color:#253b31;
+            outline:none;
+            cursor:pointer;
+            font-size:13px;
+        }
+
+        select:focus{
+            border-color:#087f3d;
+            box-shadow:0 0 0 3px rgba(8,127,61,0.08);
+        }
+
+        /* TOGGLE */
+
+        .switch{
+            position:relative;
+            width:48px;
+            height:25px;
+            flex-shrink:0;
+        }
+
+        .switch input{
+            opacity:0;
+            width:0;
+            height:0;
+        }
+
+        .slider{
+            position:absolute;
+            cursor:pointer;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            background:#cbd7d0;
+            border-radius:25px;
+            transition:0.25s;
+        }
+
+        .slider:before{
+            content:"";
+            position:absolute;
+            height:19px;
+            width:19px;
+            left:3px;
+            top:3px;
+            background:white;
+            border-radius:50%;
+            transition:0.25s;
+            box-shadow:0 1px 3px rgba(0,0,0,0.15);
+        }
+
+        .switch input:checked + .slider{
+            background:#087f3d;
+        }
+
+        .switch input:checked + .slider:before{
+            transform:translateX(23px);
+        }
+
+        /* BUTTON */
+
+        .save-btn{
+            margin-top:20px;
+            padding:12px 22px;
+            border:none;
+            border-radius:8px;
+            background:#087f3d;
+            color:white;
+            font-size:13px;
+            font-weight:700;
+            cursor:pointer;
+        }
+
+        .save-btn:hover{
+            background:#066b33;
+        }
+
+        .danger-btn{
+            padding:10px 16px;
+            border:1px solid #e3baba;
+            background:white;
+            color:#c43f3f;
+            border-radius:7px;
+            font-size:12px;
+            font-weight:700;
+            cursor:pointer;
+        }
+
+        .danger-btn:hover{
+            background:#fff3f3;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:1000px){
+
+            .sidebar{
+                width:210px;
+            }
+
+            .main{
+                margin-left:210px;
+            }
+
+            .content{
+                max-width:100%;
+            }
+        }
+
+        @media(max-width:700px){
+
+            .sidebar{
+                position:relative;
+                width:100%;
+                height:auto;
+            }
+
+            .logout{
+                position:static;
+                margin-top:20px;
+            }
+
+            .main{
+                margin-left:0;
+            }
+
+            .topbar{
+                padding:0 18px;
+            }
+
+            .content{
+                padding:18px;
+            }
+
+            .setting-item{
+                align-items:flex-start;
+            }
+
+            select{
+                width:140px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="logo">
+                360
+            </div>
+
+            <div class="brand-text">
+                360 ONE
+                <span>CAPITAL MARKET</span>
+            </div>
+
+        </div>
+
+
+        <nav class="nav">
+
+            <a href="Dashboard.html">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="Watchlist.html">
+                <span class="nav-icon">★</span>
+                <span>Watchlist</span>
+            </a>
+
+            <a href="Positions.html">
+                <span class="nav-icon">◫</span>
+                <span>Positions</span>
+            </a>
+
+            <a href="orders.html">
+                <span class="nav-icon">▤</span>
+                <span>Orders</span>
+            </a>
+
+            <a href="Tradehistory.html">
+                <span class="nav-icon">↔</span>
+                <span>Trade History</span>
+            </a>
+
+            <a href="funds.html">
+                <span class="nav-icon">₹</span>
+                <span>Funds</span>
+            </a>
+
+            <a href="Withdraw.html">
+                <span class="nav-icon">↓</span>
+                <span>Withdraw</span>
+            </a>
+
+            <a href="Ledger.html">
+                <span class="nav-icon">▥</span>
+                <span>Ledger</span>
+            </a>
+
+            <a href="Rejection.html">
+                <span class="nav-icon">⊘</span>
+                <span>Rejections</span>
+            </a>
+
+            <a href="Profile.html">
+                <span class="nav-icon">◉</span>
+                <span>Profile</span>
+            </a>
+
+            <a href="Settings.html" class="active">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <div class="logout">
+
+            <button onclick="logoutUser()">
+                ⇥ &nbsp; Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+
+                <div class="page-title">
+                    Settings
+                </div>
+
+                <div class="page-subtitle">
+                    Manage your account preferences
+                </div>
+
+            </div>
+
+
+            <div class="top-user">
+
+                <div class="user" id="userInitial">
+                    U
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="content">
+
+
+            <!-- ACCOUNT PREFERENCES -->
+
+            <div class="settings-card">
+
+                <div class="section-title">
+                    Account Preferences
+                </div>
+
+                <div class="section-description">
+                    Customize your account and trading preferences.
+                </div>
+
+
+                <div class="setting-item">
+
+                    <div class="setting-info">
+
+                        <h3>
+                            Default Trading Segment
+                        </h3>
+
+                        <p>
+                            Select your preferred trading segment.
+                        </p>
+
+                    </div>
+
+
+                    <select id="tradingSegment">
+
+                        <option value="Equity">
+                            Equity
+                        </option>
+
+                        <option value="Derivatives">
+                            Derivatives
+                        </option>
+
+                        <option value="Commodity">
+                            Commodity
+                        </option>
+
+                        <option value="Currency">
+                            Currency
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="setting-item">
+
+                    <div class="setting-info">
+
+                        <h3>
+                            Default Order Type
+                        </h3>
+
+                        <p>
+                            Choose the order type used by default.
+                        </p>
+
+                    </div>
+
+
+                    <select id="orderType">
+
+                        <option value="Market">
+                            Market
+                        </option>
+
+                        <option value="Limit">
+                            Limit
+                        </option>
+
+                        <option value="Stop Loss">
+                            Stop Loss
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="setting-item">
+
+                    <div class="setting-info">
+
+                        <h3>
+                            Confirm Before Placing Order
+                        </h3>
+
+                        <p>
+                            Show confirmation before submitting a trading order.
+                        </p>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="orderConfirmation"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- NOTIFICATIONS -->
+
+            <div class="settings-card">
+
+                <div class="section-title">
+                    Notifications
+                </div>
+
+                <div class="section-description">
+                    Control the notifications you receive.
+                </div>
+
+
+                <div class="setting-item">
+
+                    <div class="setting-info">
+
+                        <h3>
+                            Order Notifications
+                        </h3>
+
+                        <p>
+                            Receive notifications when orders are placed or executed.
+                        </p>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="orderNotifications"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <div class="setting-item">
+
+                    <div class="setting-info">
+
+                        <h3>
+                            Price Alerts
+                        </h3>
+
+                        <p>
+                            Get alerts when selected securities reach your target price.
+                        </p>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="priceAlerts"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <div class="setting-item">
+
+                    <div class="setting-info">
+
+                        <h3>
+                            Account Notifications
+                        </h3>
+
+                        <p>
+                            Receive important updates related to your account.
+                        </p>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="accountNotifications"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- DISPLAY SETTINGS -->
+
+            <div class="settings-card">
+
+                <div class="section-title">
+                    Display Settings
+                </div>
+
+                <div class="section-description">
+                    Customize how the trading interface looks.
+                </div>
+
+
+                <div class="setting-item">
+
+                    <div class="setting-info">
+
+                        <h3>
+                            Theme
+                        </h3>
+
+                        <p>
+                            Choose the appearance of the application.
+                        </p>
+
+                    </div>
+
+
+                    <select id="theme">
+
+                        <option value="light">
+                            Light
+                        </option>
+
+                        <option value="dark">
+                            Dark
+                        </option>
+
+                        <option value="system">
+                            System Default
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="setting-item">
+
+                    <div class="setting-info">
+
+                        <h3>
+                            Compact View
+                        </h3>
+
+                        <p>
+                            Display more information with reduced spacing.
+                        </p>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="compactView"
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- SECURITY -->
+
+            <div class="settings-card">
+
+                <div class="section-title">
+                    Security
+                </div>
+
+                <div class="section-description">
+                    Manage your account security preferences.
+                </div>
+
+
+                <div class="setting-item">
+
+                    <div class="setting-info">
+
+                        <h3>
+                            Login Alerts
+                        </h3>
+
+                        <p>
+                            Get notified when your account is accessed from a new device.
+                        </p>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="loginAlerts"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <div class="setting-item">
+
+                    <div class="setting-info">
+
+                        <h3>
+                            Two-Factor Authentication
+                        </h3>
+
+                        <p>
+                            Add an additional verification step when logging in.
+                        </p>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="twoFactor"
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <div class="setting-item">
+
+                    <div class="setting-info">
+
+                        <h3>
+                            Active Sessions
+                        </h3>
+
+                        <p>
+                            Review devices currently signed in to your account.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        class="danger-btn"
+                        onclick="logoutOtherSessions()"
+                    >
+                        Manage Sessions
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- SAVE -->
+
+            <button
+                class="save-btn"
+                onclick="saveSettings()"
+            >
+                SAVE SETTINGS
+            </button>
+
+
+        </section>
+
+    </main>
+
+
+    <script>
+        let currentUser = null;
+
+        function applySettingsUI(settings) {
+            if (!settings) return;
+
+            if (settings.tradingSegment && document.getElementById("tradingSegment")) {
+                document.getElementById("tradingSegment").value = settings.tradingSegment;
+            }
+            if (settings.orderType && document.getElementById("orderType")) {
+                document.getElementById("orderType").value = settings.orderType;
+            }
+            if (typeof settings.orderConfirmation !== "undefined" && document.getElementById("orderConfirmation")) {
+                document.getElementById("orderConfirmation").checked = settings.orderConfirmation;
+            }
+            if (typeof settings.orderNotifications !== "undefined" && document.getElementById("orderNotifications")) {
+                document.getElementById("orderNotifications").checked = settings.orderNotifications;
+            }
+            if (typeof settings.priceAlerts !== "undefined" && document.getElementById("priceAlerts")) {
+                document.getElementById("priceAlerts").checked = settings.priceAlerts;
+            }
+            if (typeof settings.accountNotifications !== "undefined" && document.getElementById("accountNotifications")) {
+                document.getElementById("accountNotifications").checked = settings.accountNotifications;
+            }
+            if (settings.theme && document.getElementById("theme")) {
+                document.getElementById("theme").value = settings.theme;
+            }
+            if (typeof settings.compactView !== "undefined" && document.getElementById("compactView")) {
+                document.getElementById("compactView").checked = settings.compactView;
+            }
+            if (typeof settings.loginAlerts !== "undefined" && document.getElementById("loginAlerts")) {
+                document.getElementById("loginAlerts").checked = settings.loginAlerts;
+            }
+            if (typeof settings.twoFactor !== "undefined" && document.getElementById("twoFactor")) {
+                document.getElementById("twoFactor").checked = settings.twoFactor;
+            }
+        }
+
+        /* LOAD SETTINGS FROM MONGODB */
+        document.addEventListener("DOMContentLoaded", async function() {
+            const token = localStorage.getItem("authToken");
+
+            // Display cached local settings first
+            const savedSettings = localStorage.getItem("accountSettings");
+            if (savedSettings) {
+                try { applySettingsUI(JSON.parse(savedSettings)); } catch(e) {}
+            }
+
+            // Display initial user avatar
+            const savedUser = localStorage.getItem("loggedInUser");
+            if (savedUser) {
+                try {
+                    const u = JSON.parse(savedUser);
+                    const initials = (u.fullName || u.username || "U").trim().split(/\s+/).map(w => w.charAt(0)).join("").substring(0,2).toUpperCase();
+                    if (document.getElementById("userInitial")) {
+                        document.getElementById("userInitial").textContent = initials || "U";
+                    }
+                } catch(e) {}
+            }
+
+            if (!token) {
+                window.location.href = "index.html";
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/user/settings', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    applySettingsUI(data.settings);
+                    localStorage.setItem("accountSettings", JSON.stringify(data.settings));
+                }
+            } catch (error) {
+                console.error("Error fetching settings:", error);
+            }
+        });
+
+        /* SAVE SETTINGS TO MONGODB */
+        async function saveSettings() {
+            const token = localStorage.getItem("authToken");
+            if (!token) {
+                alert("Session expired. Please login again.");
+                window.location.href = "index.html";
+                return;
+            }
+
+            const settings = {
+                tradingSegment: document.getElementById("tradingSegment") ? document.getElementById("tradingSegment").value : "equity",
+                orderType: document.getElementById("orderType") ? document.getElementById("orderType").value : "limit",
+                orderConfirmation: document.getElementById("orderConfirmation") ? document.getElementById("orderConfirmation").checked : true,
+                orderNotifications: document.getElementById("orderNotifications") ? document.getElementById("orderNotifications").checked : true,
+                priceAlerts: document.getElementById("priceAlerts") ? document.getElementById("priceAlerts").checked : true,
+                accountNotifications: document.getElementById("accountNotifications") ? document.getElementById("accountNotifications").checked : true,
+                theme: document.getElementById("theme") ? document.getElementById("theme").value : "light",
+                compactView: document.getElementById("compactView") ? document.getElementById("compactView").checked : false,
+                loginAlerts: document.getElementById("loginAlerts") ? document.getElementById("loginAlerts").checked : true,
+                twoFactor: document.getElementById("twoFactor") ? document.getElementById("twoFactor").checked : false
+            };
+
+            try {
+                const response = await fetch('/api/user/settings', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify(settings)
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    localStorage.setItem("accountSettings", JSON.stringify(data.settings));
+                    alert("Settings saved successfully!");
+                } else {
+                    alert(data.message || "Failed to save settings.");
+                }
+            } catch (error) {
+                console.error("Error saving settings:", error);
+                alert("Unable to save settings. Please check server connection.");
+            }
+        }
+
+        /* MANAGE SESSIONS */
+        function logoutOtherSessions() {
+            const confirmLogout = confirm("Do you want to logout from other active sessions?");
+            if (confirmLogout) {
+                alert("Other active sessions have been logged out.");
+            }
+        }
+
+        /* LOGOUT */
+        async function logoutUser() {
+            const token = localStorage.getItem("authToken");
+            try {
+                await fetch('/api/auth/logout', {
+                    method: 'POST',
+                    headers: { 'Authorization': 'Bearer ' + (token || '') }
+                });
+            } catch(e) {}
+
+            localStorage.removeItem("authToken");
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+</html>
+```

@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Trade History | 360 ONE CAPITAL MARKET</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f5f8f6;
+    color:#1f2937;
+}
+
+/* SIDEBAR */
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:240px;
+    height:100vh;
+    background:#fff;
+    border-right:1px solid #e2e8e4;
+    padding:22px 15px;
+    z-index:10;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:5px 10px 28px;
+    border-bottom:1px solid #edf1ee;
+    margin-bottom:20px;
+}
+
+.logo-circle{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#0a8f4d;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    font-size:14px;
+}
+
+.logo-text{
+    font-size:15px;
+    font-weight:bold;
+    color:#116b3d;
+    line-height:1.2;
+}
+
+.nav a{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    text-decoration:none;
+    color:#64748b;
+    padding:13px 14px;
+    border-radius:9px;
+    margin-bottom:6px;
+    font-size:14px;
+    transition:.2s;
+}
+
+.nav a:hover{
+    background:#edf8f2;
+    color:#087a40;
+}
+
+.nav a.active{
+    background:#e5f6ec;
+    color:#078044;
+    font-weight:600;
+}
+
+.icon{
+    width:20px;
+    text-align:center;
+    font-size:17px;
+}
+
+/* MAIN */
+.main{
+    margin-left:240px;
+    min-height:100vh;
+}
+
+/* TOPBAR */
+.topbar{
+    height:70px;
+    background:#fff;
+    border-bottom:1px solid #e5ebe7;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+}
+
+.page-title{
+    font-size:21px;
+    font-weight:700;
+    color:#17251d;
+}
+
+.top-right{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.market-status{
+    font-size:13px;
+    color:#078044;
+    background:#e9f8ef;
+    padding:8px 12px;
+    border-radius:20px;
+}
+
+.user{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:#0a8f4d;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    font-weight:bold;
+}
+
+/* CONTENT */
+.content{
+    padding:28px 30px;
+}
+
+.heading-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:22px;
+}
+
+.heading-row h1{
+    font-size:25px;
+    color:#17251d;
+}
+
+.heading-row p{
+    margin-top:5px;
+    color:#718078;
+    font-size:14px;
+}
+
+.export-btn{
+    border:1px solid #0a8f4d;
+    background:#fff;
+    color:#078044;
+    padding:10px 16px;
+    border-radius:7px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.export-btn:hover{
+    background:#eaf8f0;
+}
+
+/* SUMMARY */
+.summary{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:25px;
+}
+
+.card{
+    background:#fff;
+    border:1px solid #e3eae5;
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 2px 7px rgba(0,0,0,.03);
+}
+
+.card-title{
+    font-size:13px;
+    color:#738078;
+    margin-bottom:10px;
+}
+
+.card-value{
+    font-size:23px;
+    font-weight:bold;
+    color:#18241d;
+}
+
+.profit{
+    color:#078044;
+}
+
+.loss{
+    color:#d14343;
+}
+
+/* HISTORY BOX */
+.history-box{
+    background:#fff;
+    border:1px solid #e3eae5;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 2px 7px rgba(0,0,0,.03);
+}
+
+.history-header{
+    padding:20px 22px;
+    border-bottom:1px solid #edf1ee;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.history-header h2{
+    font-size:18px;
+}
+
+/* FILTERS */
+.filters{
+    display:flex;
+    gap:8px;
+}
+
+.filter-btn{
+    border:1px solid #d9e3dc;
+    background:#fff;
+    padding:8px 14px;
+    border-radius:6px;
+    color:#64748b;
+    cursor:pointer;
+    font-size:13px;
+}
+
+.filter-btn:hover,
+.filter-btn.active{
+    background:#e8f7ee;
+    color:#078044;
+    border-color:#b8dfc8;
+}
+
+/* SEARCH */
+.search-area{
+    padding:18px 22px;
+    border-bottom:1px solid #edf1ee;
+    display:flex;
+    gap:10px;
+}
+
+.search{
+    width:320px;
+    max-width:100%;
+    height:40px;
+    border:1px solid #dce5df;
+    border-radius:7px;
+    padding:0 13px;
+    outline:none;
+    font-size:13px;
+}
+
+.search:focus{
+    border-color:#0a8f4d;
+}
+
+/* TABLE */
+.table-container{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1050px;
+}
+
+thead{
+    background:#f7faf8;
+}
+
+th{
+    text-align:left;
+    padding:14px 18px;
+    font-size:12px;
+    color:#718078;
+    font-weight:600;
+    border-bottom:1px solid #e7ece9;
+}
+
+td{
+    padding:17px 18px;
+    font-size:13px;
+    border-bottom:1px solid #edf1ee;
+    color:#344139;
+}
+
+tbody tr:hover{
+    background:#fbfdfc;
+}
+
+.stock-name{
+    font-weight:600;
+    color:#17251d;
+}
+
+.symbol{
+    display:block;
+    color:#89958d;
+    font-size:11px;
+    margin-top:4px;
+}
+
+.buy{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:5px;
+    background:#e8f7ee;
+    color:#078044;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.sell{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:5px;
+    background:#fff0f0;
+    color:#d14343;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.profit-badge{
+    color:#078044;
+    font-weight:600;
+}
+
+.loss-badge{
+    color:#d14343;
+    font-weight:600;
+}
+
+.details-btn{
+    border:1px solid #d4ded7;
+    background:#fff;
+    color:#344139;
+    padding:7px 11px;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:12px;
+}
+
+.details-btn:hover{
+    background:#f2f7f4;
+}
+
+/* EMPTY */
+.empty{
+    display:none;
+    text-align:center;
+    padding:45px;
+    color:#78847c;
+}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+
+    .sidebar{
+        width:210px;
+    }
+
+    .main{
+        margin-left:210px;
+    }
+
+    .summary{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:750px){
+
+    .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+    }
+
+    .nav{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .topbar{
+        padding:0 18px;
+    }
+
+    .content{
+        padding:20px 15px;
+    }
+
+    .summary{
+        grid-template-columns:1fr;
+    }
+
+    .heading-row{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+    .history-header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+    .filters{
+        flex-wrap:wrap;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-circle">
+            360
+        </div>
+
+        <div class="logo-text">
+            360 ONE<br>
+            CAPITAL MARKET
+        </div>
+
+    </div>
+
+    <nav class="nav">
+
+        <a href="Dashboard.html">
+            <span class="icon">⌂</span>
+            Dashboard
+        </a>
+
+        <a href="Watchlist.html">
+            <span class="icon">☆</span>
+            Watchlist
+        </a>
+
+        <a href="Positions.html">
+            <span class="icon">▣</span>
+            Positions
+        </a>
+
+        <a href="orders.html">
+            <span class="icon">☷</span>
+            Orders
+        </a>
+
+        <a href="Tradehistory.html" class="active">
+            <span class="icon">↔</span>
+            Trade History
+        </a>
+
+        <a href="funds.html">
+            <span class="icon">₹</span>
+            Funds
+        </a>
+
+        <a href="Withdraw.html">
+            <span class="icon">↓</span>
+            Withdraw
+        </a>
+
+        <a href="Ledger.html">
+            <span class="icon">▤</span>
+            Ledger
+        </a>
+
+        <a href="Rejection.html">
+            <span class="icon">!</span>
+            Rejections
+        </a>
+
+        <a href="Profile.html">
+            <span class="icon">◯</span>
+            Profile
+        </a>
+
+        <a href="Settings.html">
+            <span class="icon">⚙</span>
+            Settings
+        </a>
+
+        <a href="#" onclick="logoutUser()">
+            <span class="icon">⇥</span>
+            Logout
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<!-- MAIN -->
+<main class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+
+        <div class="page-title">
+            Trade History
+        </div>
+
+        <div class="top-right">
+
+            <div class="market-status">
+                ● Market Open
+            </div>
+
+            <div class="user" id="userInitial">
+                U
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- CONTENT -->
+    <section class="content">
+
+        <div class="heading-row">
+
+            <div>
+                <h1>Trade History</h1>
+
+                <p>
+                    View your completed trading transactions
+                </p>
+            </div>
+
+            <button
+                class="export-btn"
+                onclick="exportHistory()">
+                ↓ Export
+            </button>
+
+        </div>
+
+
+        <!-- SUMMARY -->
+        <div class="summary">
+
+            <div class="card">
+
+                <div class="card-title">
+                    Total Trades
+                </div>
+
+                <div class="card-value">
+                    24
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    Buy Trades
+                </div>
+
+                <div class="card-value">
+                    14
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    Sell Trades
+                </div>
+
+                <div class="card-value">
+                    10
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    Total P&L
+                </div>
+
+                <div class="card-value profit">
+                    +₹8,450
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- HISTORY -->
+        <div class="history-box">
+
+            <div class="history-header">
+
+                <h2>Completed Trades</h2>
+
+                <div class="filters">
+
+                    <button
+                        class="filter-btn active"
+                        onclick="filterTrades('all', this)">
+                        All
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        onclick="filterTrades('buy', this)">
+                        Buy
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        onclick="filterTrades('sell', this)">
+                        Sell
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        onclick="filterTrades('profit', this)">
+                        Profit
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        onclick="filterTrades('loss', this)">
+                        Loss
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- SEARCH -->
+            <div class="search-area">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="search"
+                    placeholder="Search by stock or trade ID..."
+                    onkeyup="searchTrades()">
+
+            </div>
+
+
+            <!-- TABLE -->
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Trade ID</th>
+                            <th>Instrument</th>
+                            <th>Type</th>
+                            <th>Qty</th>
+                            <th>Entry Price</th>
+                            <th>Exit Price</th>
+                            <th>Trade Value</th>
+                            <th>P&L</th>
+                            <th>Date</th>
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="tradeTable">
+
+                        <tr
+                            class="trade-row"
+                            data-type="buy"
+                            data-result="profit">
+
+                            <td>#TRD2001</td>
+
+                            <td>
+                                <span class="stock-name">
+                                    Reliance Industries
+                                </span>
+
+                                <span class="symbol">
+                                    RELIANCE
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="buy">
+                                    BUY
+                                </span>
+                            </td>
+
+                            <td>25</td>
+
+                            <td>₹2,420.00</td>
+
+                            <td>₹2,535.50</td>
+
+                            <td>₹60,500</td>
+
+                            <td class="profit-badge">
+                                +₹2,887.50
+                            </td>
+
+                            <td>17 Sep 2026</td>
+
+                            <td>
+                                <button
+                                    class="details-btn"
+                                    onclick="viewTrade('TRD2001')">
+                                    Details
+                                </button>
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            class="trade-row"
+                            data-type="sell"
+                            data-result="profit">
+
+                            <td>#TRD2002</td>
+
+                            <td>
+                                <span class="stock-name">
+                                    TCS
+                                </span>
+
+                                <span class="symbol">
+                                    TCS
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="sell">
+                                    SELL
+                                </span>
+                            </td>
+
+                            <td>15</td>
+
+                            <td>₹3,650.00</td>
+
+                            <td>₹3,785.25</td>
+
+                            <td>₹54,750</td>
+
+                            <td class="profit-badge">
+                                +₹2,028.75
+                            </td>
+
+                            <td>16 Sep 2026</td>
+
+                            <td>
+                                <button
+                                    class="details-btn"
+                                    onclick="viewTrade('TRD2002')">
+                                    Details
+                                </button>
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            class="trade-row"
+                            data-type="buy"
+                            data-result="loss">
+
+                            <td>#TRD2003</td>
+
+                            <td>
+                                <span class="stock-name">
+                                    HDFC Bank
+                                </span>
+
+                                <span class="symbol">
+                                    HDFCBANK
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="buy">
+                                    BUY
+                                </span>
+                            </td>
+
+                            <td>30</td>
+
+                            <td>₹1,690.00</td>
+
+                            <td>₹1,670.40</td>
+
+                            <td>₹50,700</td>
+
+                            <td class="loss-badge">
+                                -₹588
+                            </td>
+
+                            <td>15 Sep 2026</td>
+
+                            <td>
+                                <button
+                                    class="details-btn"
+                                    onclick="viewTrade('TRD2003')">
+                                    Details
+                                </button>
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            class="trade-row"
+                            data-type="buy"
+                            data-result="profit">
+
+                            <td>#TRD2004</td>
+
+                            <td>
+                                <span class="stock-name">
+                                    Infosys
+                                </span>
+
+                                <span class="symbol">
+                                    INFY
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="buy">
+                                    BUY
+                                </span>
+                            </td>
+
+                            <td>40</td>
+
+                            <td>₹1,450.00</td>
+
+                            <td>₹1,518.75</td>
+
+                            <td>₹58,000</td>
+
+                            <td class="profit-badge">
+                                +₹2,750
+                            </td>
+
+                            <td>14 Sep 2026</td>
+
+                            <td>
+                                <button
+                                    class="details-btn"
+                                    onclick="viewTrade('TRD2004')">
+                                    Details
+                                </button>
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            class="trade-row"
+                            data-type="sell"
+                            data-result="loss">
+
+                            <td>#TRD2005</td>
+
+                            <td>
+                                <span class="stock-name">
+                                    ITC
+                                </span>
+
+                                <span class="symbol">
+                                    ITC
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="sell">
+                                    SELL
+                                </span>
+                            </td>
+
+                            <td>35</td>
+
+                            <td>₹445.00</td>
+
+                            <td>₹458.90</td>
+
+                            <td>₹15,575</td>
+
+                            <td class="loss-badge">
+                                -₹486.50
+                            </td>
+
+                            <td>13 Sep 2026</td>
+
+                            <td>
+                                <button
+                                    class="details-btn"
+                                    onclick="viewTrade('TRD2005')">
+                                    Details
+                                </button>
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            class="trade-row"
+                            data-type="buy"
+                            data-result="profit">
+
+                            <td>#TRD2006</td>
+
+                            <td>
+                                <span class="stock-name">
+                                    ICICI Bank
+                                </span>
+
+                                <span class="symbol">
+                                    ICICIBANK
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="buy">
+                                    BUY
+                                </span>
+                            </td>
+
+                            <td>20</td>
+
+                            <td>₹1,350.00</td>
+
+                            <td>₹1,420.00</td>
+
+                            <td>₹27,000</td>
+
+                            <td class="profit-badge">
+                                +₹1,400
+                            </td>
+
+                            <td>12 Sep 2026</td>
+
+                            <td>
+                                <button
+                                    class="details-btn"
+                                    onclick="viewTrade('TRD2006')">
+                                    Details
+                                </button>
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            class="trade-row"
+                            data-type="sell"
+                            data-result="profit">
+
+                            <td>#TRD2007</td>
+
+                            <td>
+                                <span class="stock-name">
+                                    Hindalco Industries
+                                </span>
+
+                                <span class="symbol">
+                                    HINDALCO
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="sell">
+                                    SELL
+                                </span>
+                            </td>
+
+                            <td>50</td>
+
+                            <td>₹720.00</td>
+
+                            <td>₹691.10</td>
+
+                            <td>₹36,000</td>
+
+                            <td class="profit-badge">
+                                +₹1,445
+                            </td>
+
+                            <td>11 Sep 2026</td>
+
+                            <td>
+                                <button
+                                    class="details-btn"
+                                    onclick="viewTrade('TRD2007')">
+                                    Details
+                                </button>
+                            </td>
+
+                        </tr>
+
+
+                        <tr
+                            class="trade-row"
+                            data-type="buy"
+                            data-result="profit">
+
+                            <td>#TRD2008</td>
+
+                            <td>
+                                <span class="stock-name">
+                                    Adani Enterprises
+                                </span>
+
+                                <span class="symbol">
+                                    ADANIENT
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="buy">
+                                    BUY
+                                </span>
+                            </td>
+
+                            <td>10</td>
+
+                            <td>₹2,420.00</td>
+
+                            <td>₹2,507.80</td>
+
+                            <td>₹24,200</td>
+
+                            <td class="profit-badge">
+                                +₹878
+                            </td>
+
+                            <td>10 Sep 2026</td>
+
+                            <td>
+                                <button
+                                    class="details-btn"
+                                    onclick="viewTrade('TRD2008')">
+                                    Details
+                                </button>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+
+                <div
+                    class="empty"
+                    id="emptyMessage">
+
+                    No trades found.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+/* USER INITIALS */
+
+const savedUser =
+    localStorage.getItem("loggedInUser");
+
+if(savedUser){
+
+    try{
+
+        const user =
+            JSON.parse(savedUser);
+
+        const fullName =
+            user.fullName ||
+            user.username ||
+            "User";
+
+        const initials =
+            fullName
+            .trim()
+            .split(/\s+/)
+            .map(word => word.charAt(0))
+            .join("")
+            .substring(0,2)
+            .toUpperCase();
+
+        document.getElementById("userInitial")
+            .textContent =
+            initials || "U";
+
+    }
+    catch(error){
+
+        console.log(
+            "User information unavailable."
+        );
+
+    }
+
+}
+
+
+/* FILTER TRADES */
+
+function filterTrades(type, button){
+
+    const rows =
+        document.querySelectorAll(".trade-row");
+
+    const buttons =
+        document.querySelectorAll(".filter-btn");
+
+    buttons.forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    let visible = 0;
+
+    rows.forEach(row => {
+
+        const tradeType =
+            row.getAttribute("data-type");
+
+        const result =
+            row.getAttribute("data-result");
+
+        let show = false;
+
+        if(type === "all"){
+            show = true;
+        }
+
+        else if(type === "buy" || type === "sell"){
+            show = tradeType === type;
+        }
+
+        else if(type === "profit" || type === "loss"){
+            show = result === type;
+        }
+
+        if(show){
+
+            row.style.display = "";
+            visible++;
+
+        }
+        else{
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+    document.getElementById("emptyMessage")
+        .style.display =
+        visible === 0 ? "block" : "none";
+}
+
+
+/* SEARCH */
+
+function searchTrades(){
+
+    const search =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const rows =
+        document.querySelectorAll(".trade-row");
+
+    let visible = 0;
+
+    rows.forEach(row => {
+
+        const text =
+            row.textContent.toLowerCase();
+
+        if(text.includes(search)){
+
+            row.style.display = "";
+            visible++;
+
+        }
+        else{
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+    document.getElementById("emptyMessage")
+        .style.display =
+        visible === 0 ? "block" : "none";
+}
+
+
+/* TRADE DETAILS */
+
+function viewTrade(tradeId){
+
+    alert(
+        "Trade Details\n\n" +
+        "Trade ID: #" + tradeId +
+        "\n\n" +
+        "This is a demo interface. " +
+        "No real trade is processed."
+    );
+
+}
+
+
+/* EXPORT */
+
+function exportHistory(){
+
+    alert(
+        "Trade history export is available " +
+        "in this demo interface."
+    );
+
+}
+
+
+/* LOGOUT */
+
+function logoutUser(){
+
+    localStorage.removeItem(
+        "loggedInUser"
+    );
+
+    window.location.href =
+        "index.html";
+
+}
+
+</script>
+
+</body>
+</html>

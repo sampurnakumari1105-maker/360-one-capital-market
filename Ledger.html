@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ledger | 360 ONE CAPITAL MARKET</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f5f8f6;
+            color:#1d2b24;
+        }
+
+        /* SIDEBAR */
+        .sidebar{
+            position:fixed;
+            left:0;
+            top:0;
+            width:245px;
+            height:100vh;
+            background:#fff;
+            border-right:1px solid #e2ebe5;
+            padding:20px 15px;
+            z-index:10;
+        }
+
+        .logo{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            padding:8px 10px 25px;
+            border-bottom:1px solid #e8eee9;
+        }
+
+        .logo-circle{
+            width:42px;
+            height:42px;
+            border-radius:50%;
+            background:#0b8f55;
+            color:#fff;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:14px;
+            font-weight:bold;
+        }
+
+        .logo-text{
+            font-size:14px;
+            font-weight:700;
+            color:#17382a;
+            line-height:1.2;
+        }
+
+        .nav{
+            margin-top:22px;
+        }
+
+        .nav a{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            text-decoration:none;
+            color:#66736c;
+            padding:12px 14px;
+            margin-bottom:5px;
+            border-radius:8px;
+            font-size:14px;
+            transition:.2s;
+        }
+
+        .nav a:hover{
+            background:#eef8f2;
+            color:#07864e;
+        }
+
+        .nav a.active{
+            background:#e8f7ef;
+            color:#07864e;
+            font-weight:600;
+        }
+
+        .nav-icon{
+            width:22px;
+            text-align:center;
+            font-size:17px;
+        }
+
+        .logout{
+            position:absolute;
+            bottom:20px;
+            left:15px;
+            right:15px;
+        }
+
+        .logout a{
+            color:#d94b4b;
+        }
+
+        .logout a:hover{
+            background:#fff1f1;
+            color:#d33d3d;
+        }
+
+        /* MAIN */
+        .main{
+            margin-left:245px;
+            min-height:100vh;
+        }
+
+        .topbar{
+            height:70px;
+            background:#fff;
+            border-bottom:1px solid #e2ebe5;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:0 30px;
+        }
+
+        .page-title{
+            font-size:21px;
+            font-weight:700;
+            color:#18382a;
+        }
+
+        .top-right{
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+
+        .notification{
+            width:38px;
+            height:38px;
+            border-radius:50%;
+            background:#f1f6f3;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+
+        .user{
+            width:38px;
+            height:38px;
+            border-radius:50%;
+            background:#0b8f55;
+            color:#fff;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:13px;
+            font-weight:bold;
+        }
+
+        /* CONTENT */
+        .content{
+            padding:30px;
+        }
+
+        .breadcrumb{
+            color:#7b8780;
+            font-size:13px;
+            margin-bottom:25px;
+        }
+
+        .breadcrumb span{
+            color:#0b8f55;
+        }
+
+        /* SUMMARY */
+        .summary-grid{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:18px;
+            margin-bottom:25px;
+        }
+
+        .summary-card{
+            background:#fff;
+            border:1px solid #e1eae4;
+            border-radius:11px;
+            padding:20px;
+            box-shadow:0 2px 8px rgba(20,60,40,.04);
+        }
+
+        .summary-label{
+            color:#758078;
+            font-size:12px;
+            margin-bottom:9px;
+        }
+
+        .summary-value{
+            font-size:21px;
+            font-weight:700;
+            color:#20382b;
+        }
+
+        .summary-value.green{
+            color:#07864e;
+        }
+
+        .summary-value.red{
+            color:#d94b4b;
+        }
+
+        /* LEDGER CARD */
+        .ledger-card{
+            background:#fff;
+            border:1px solid #e1eae4;
+            border-radius:12px;
+            overflow:hidden;
+            box-shadow:0 2px 8px rgba(20,60,40,.04);
+        }
+
+        .ledger-header{
+            padding:22px 24px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            border-bottom:1px solid #e8eee9;
+            gap:15px;
+        }
+
+        .ledger-header h2{
+            font-size:18px;
+            color:#18382a;
+        }
+
+        .ledger-header p{
+            color:#7b8780;
+            font-size:12px;
+            margin-top:5px;
+        }
+
+        .header-actions{
+            display:flex;
+            gap:10px;
+        }
+
+        .search-box{
+            height:40px;
+            width:220px;
+            border:1px solid #d7e1db;
+            border-radius:7px;
+            padding:0 12px;
+            outline:none;
+            font-size:13px;
+        }
+
+        .search-box:focus{
+            border-color:#0b8f55;
+        }
+
+        .export-btn{
+            height:40px;
+            padding:0 16px;
+            border:1px solid #0b8f55;
+            background:#0b8f55;
+            color:white;
+            border-radius:7px;
+            cursor:pointer;
+            font-size:13px;
+            font-weight:600;
+        }
+
+        .export-btn:hover{
+            background:#087a49;
+        }
+
+        /* FILTERS */
+        .filters{
+            display:flex;
+            gap:8px;
+            padding:17px 24px;
+            border-bottom:1px solid #edf1ee;
+        }
+
+        .filter-btn{
+            border:1px solid #d7e2db;
+            background:#fff;
+            color:#68756e;
+            padding:8px 15px;
+            border-radius:6px;
+            cursor:pointer;
+            font-size:12px;
+        }
+
+        .filter-btn:hover{
+            background:#f0f8f3;
+            color:#07864e;
+        }
+
+        .filter-btn.active{
+            background:#0b8f55;
+            border-color:#0b8f55;
+            color:#fff;
+        }
+
+        /* TABLE */
+        .table-container{
+            overflow-x:auto;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            min-width:850px;
+        }
+
+        th{
+            text-align:left;
+            background:#f8faf9;
+            color:#69766f;
+            font-size:11px;
+            font-weight:600;
+            padding:14px 18px;
+            border-bottom:1px solid #e7eee9;
+        }
+
+        td{
+            padding:16px 18px;
+            border-bottom:1px solid #edf1ee;
+            font-size:13px;
+            color:#35443b;
+        }
+
+        tbody tr:hover{
+            background:#fafcfb;
+        }
+
+        .date{
+            color:#78847d;
+            font-size:12px;
+        }
+
+        .description{
+            font-weight:600;
+            color:#26392e;
+        }
+
+        .credit{
+            color:#07864e;
+            font-weight:600;
+        }
+
+        .debit{
+            color:#d94b4b;
+            font-weight:600;
+        }
+
+        .balance{
+            font-weight:600;
+            color:#26392e;
+        }
+
+        .type-badge{
+            display:inline-block;
+            padding:5px 9px;
+            border-radius:5px;
+            font-size:10px;
+            font-weight:600;
+        }
+
+        .type-credit{
+            background:#e8f7ef;
+            color:#07864e;
+        }
+
+        .type-debit{
+            background:#fff0f0;
+            color:#d94b4b;
+        }
+
+        /* NO RESULT */
+        .no-result{
+            display:none;
+            text-align:center;
+            padding:35px;
+            color:#7d8982;
+            font-size:13px;
+        }
+
+        /* FOOTER INFO */
+        .ledger-footer{
+            padding:17px 24px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            color:#7c8781;
+            font-size:12px;
+        }
+
+        .view-note{
+            color:#0b8f55;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:1000px){
+            .summary-grid{
+                grid-template-columns:repeat(2,1fr);
+            }
+        }
+
+        @media(max-width:750px){
+
+            .sidebar{
+                width:70px;
+                padding:15px 10px;
+            }
+
+            .logo-text{
+                display:none;
+            }
+
+            .logo{
+                justify-content:center;
+                padding:8px 0 20px;
+            }
+
+            .nav a{
+                justify-content:center;
+                padding:12px 5px;
+            }
+
+            .nav a span:not(.nav-icon){
+                display:none;
+            }
+
+            .logout a{
+                justify-content:center;
+            }
+
+            .main{
+                margin-left:70px;
+            }
+
+            .content{
+                padding:20px 15px;
+            }
+
+            .topbar{
+                padding:0 15px;
+            }
+
+            .page-title{
+                font-size:18px;
+            }
+
+            .summary-grid{
+                grid-template-columns:1fr;
+            }
+
+            .ledger-header{
+                flex-direction:column;
+                align-items:flex-start;
+            }
+
+            .header-actions{
+                width:100%;
+            }
+
+            .search-box{
+                width:100%;
+            }
+
+            .export-btn{
+                white-space:nowrap;
+            }
+
+            .filters{
+                overflow-x:auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-circle">360</div>
+
+            <div class="logo-text">
+                360 ONE<br>
+                CAPITAL MARKET
+            </div>
+        </div>
+
+        <nav class="nav">
+
+            <a href="Dashboard.html">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="Watchlist.html">
+                <span class="nav-icon">☆</span>
+                <span>Watchlist</span>
+            </a>
+
+            <a href="Positions.html">
+                <span class="nav-icon">◈</span>
+                <span>Positions</span>
+            </a>
+
+            <a href="orders.html">
+                <span class="nav-icon">▣</span>
+                <span>Orders</span>
+            </a>
+
+            <a href="Tradehistory.html">
+                <span class="nav-icon">↔</span>
+                <span>Trade History</span>
+            </a>
+
+            <a href="funds.html">
+                <span class="nav-icon">₹</span>
+                <span>Funds</span>
+            </a>
+
+            <a href="Withdraw.html">
+                <span class="nav-icon">↓</span>
+                <span>Withdraw</span>
+            </a>
+
+            <a href="Ledger.html" class="active">
+                <span class="nav-icon">☷</span>
+                <span>Ledger</span>
+            </a>
+
+            <a href="Rejection.html">
+                <span class="nav-icon">⊘</span>
+                <span>Rejections</span>
+            </a>
+
+            <a href="Profile.html">
+                <span class="nav-icon">♙</span>
+                <span>Profile</span>
+            </a>
+
+            <a href="Settings.html">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+        <div class="logout">
+
+            <a href="#" onclick="logoutUser()">
+                <span class="nav-icon">⇥</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div class="page-title">
+                Ledger
+            </div>
+
+            <div class="top-right">
+
+                <div class="notification">
+                    🔔
+                </div>
+
+                <div class="user" id="userInitial">
+                    U
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+        <section class="content">
+
+            <div class="breadcrumb">
+                Funds &nbsp; / &nbsp; <span>Ledger</span>
+            </div>
+
+
+            <!-- SUMMARY -->
+            <div class="summary-grid">
+
+                <div class="summary-card">
+
+                    <div class="summary-label">
+                        Opening Balance
+                    </div>
+
+                    <div class="summary-value">
+                        ₹1,50,000
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-label">
+                        Total Credits
+                    </div>
+
+                    <div class="summary-value green">
+                        +₹90,000
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-label">
+                        Total Debits
+                    </div>
+
+                    <div class="summary-value red">
+                        -₹35,000
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-label">
+                        Closing Balance
+                    </div>
+
+                    <div class="summary-value green">
+                        ₹2,05,000
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- LEDGER -->
+            <div class="ledger-card">
+
+                <div class="ledger-header">
+
+                    <div>
+                        <h2>Account Ledger</h2>
+
+                        <p>
+                            Complete record of your account transactions
+                        </p>
+                    </div>
+
+                    <div class="header-actions">
+
+                        <input
+                            type="text"
+                            id="searchInput"
+                            class="search-box"
+                            placeholder="Search transactions..."
+                            oninput="searchLedger()"
+                        >
+
+                        <button
+                            class="export-btn"
+                            onclick="exportLedger()">
+                            EXPORT
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FILTERS -->
+                <div class="filters">
+
+                    <button
+                        class="filter-btn active"
+                        onclick="filterLedger('all', this)">
+                        All
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        onclick="filterLedger('credit', this)">
+                        Credits
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        onclick="filterLedger('debit', this)">
+                        Debits
+                    </button>
+
+                </div>
+
+
+                <!-- TABLE -->
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Date</th>
+                                <th>Transaction ID</th>
+                                <th>Description</th>
+                                <th>Type</th>
+                                <th>Credit</th>
+                                <th>Debit</th>
+                                <th>Balance</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="ledgerBody">
+
+                            <tr
+                                class="ledger-row"
+                                data-type="credit">
+
+                                <td class="date">
+                                    20 Sep 2026
+                                </td>
+
+                                <td>
+                                    LED1008
+                                </td>
+
+                                <td class="description">
+                                    Funds Added
+                                </td>
+
+                                <td>
+                                    <span class="type-badge type-credit">
+                                        CREDIT
+                                    </span>
+                                </td>
+
+                                <td class="credit">
+                                    +₹25,000
+                                </td>
+
+                                <td>
+                                    —
+                                </td>
+
+                                <td class="balance">
+                                    ₹2,05,000
+                                </td>
+
+                            </tr>
+
+
+                            <tr
+                                class="ledger-row"
+                                data-type="debit">
+
+                                <td class="date">
+                                    18 Sep 2026
+                                </td>
+
+                                <td>
+                                    LED1007
+                                </td>
+
+                                <td class="description">
+                                    Withdrawal
+                                </td>
+
+                                <td>
+                                    <span class="type-badge type-debit">
+                                        DEBIT
+                                    </span>
+                                </td>
+
+                                <td>
+                                    —
+                                </td>
+
+                                <td class="debit">
+                                    -₹10,000
+                                </td>
+
+                                <td class="balance">
+                                    ₹1,80,000
+                                </td>
+
+                            </tr>
+
+
+                            <tr
+                                class="ledger-row"
+                                data-type="credit">
+
+                                <td class="date">
+                                    15 Sep 2026
+                                </td>
+
+                                <td>
+                                    LED1006
+                                </td>
+
+                                <td class="description">
+                                    Funds Added
+                                </td>
+
+                                <td>
+                                    <span class="type-badge type-credit">
+                                        CREDIT
+                                    </span>
+                                </td>
+
+                                <td class="credit">
+                                    +₹50,000
+                                </td>
+
+                                <td>
+                                    —
+                                </td>
+
+                                <td class="balance">
+                                    ₹1,90,000
+                                </td>
+
+                            </tr>
+
+
+                            <tr
+                                class="ledger-row"
+                                data-type="debit">
+
+                                <td class="date">
+                                    12 Sep 2026
+                                </td>
+
+                                <td>
+                                    LED1005
+                                </td>
+
+                                <td class="description">
+                                    Withdrawal
+                                </td>
+
+                                <td>
+                                    <span class="type-badge type-debit">
+                                        DEBIT
+                                    </span>
+                                </td>
+
+                                <td>
+                                    —
+                                </td>
+
+                                <td class="debit">
+                                    -₹5,000
+                                </td>
+
+                                <td class="balance">
+                                    ₹1,40,000
+                                </td>
+
+                            </tr>
+
+
+                            <tr
+                                class="ledger-row"
+                                data-type="credit">
+
+                                <td class="date">
+                                    10 Sep 2026
+                                </td>
+
+                                <td>
+                                    LED1004
+                                </td>
+
+                                <td class="description">
+                                    Funds Added
+                                </td>
+
+                                <td>
+                                    <span class="type-badge type-credit">
+                                        CREDIT
+                                    </span>
+                                </td>
+
+                                <td class="credit">
+                                    +₹15,000
+                                </td>
+
+                                <td>
+                                    —
+                                </td>
+
+                                <td class="balance">
+                                    ₹1,45,000
+                                </td>
+
+                            </tr>
+
+
+                            <tr
+                                class="ledger-row"
+                                data-type="debit">
+
+                                <td class="date">
+                                    08 Sep 2026
+                                </td>
+
+                                <td>
+                                    LED1003
+                                </td>
+
+                                <td class="description">
+                                    Trading Charges
+                                </td>
+
+                                <td>
+                                    <span class="type-badge type-debit">
+                                        DEBIT
+                                    </span>
+                                </td>
+
+                                <td>
+                                    —
+                                </td>
+
+                                <td class="debit">
+                                    -₹2,500
+                                </td>
+
+                                <td class="balance">
+                                    ₹1,30,000
+                                </td>
+
+                            </tr>
+
+
+                            <tr
+                                class="ledger-row"
+                                data-type="credit">
+
+                                <td class="date">
+                                    05 Sep 2026
+                                </td>
+
+                                <td>
+                                    LED1002
+                                </td>
+
+                                <td class="description">
+                                    Funds Added
+                                </td>
+
+                                <td>
+                                    <span class="type-badge type-credit">
+                                        CREDIT
+                                    </span>
+                                </td>
+
+                                <td class="credit">
+                                    +₹0
+                                </td>
+
+                                <td>
+                                    —
+                                </td>
+
+                                <td class="balance">
+                                    ₹1,32,500
+                                </td>
+
+                            </tr>
+
+
+                            <tr
+                                class="ledger-row"
+                                data-type="debit">
+
+                                <td class="date">
+                                    01 Sep 2026
+                                </td>
+
+                                <td>
+                                    LED1001
+                                </td>
+
+                                <td class="description">
+                                    Withdrawal
+                                </td>
+
+                                <td>
+                                    <span class="type-badge type-debit">
+                                        DEBIT
+                                    </span>
+                                </td>
+
+                                <td>
+                                    —
+                                </td>
+
+                                <td class="debit">
+                                    -₹17,500
+                                </td>
+
+                                <td class="balance">
+                                    ₹1,32,500
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <div
+                    class="no-result"
+                    id="noResult">
+                    No transactions found.
+                </div>
+
+
+                <div class="ledger-footer">
+
+                    <span>
+                        Showing demo account transactions
+                    </span>
+
+                    <span class="view-note">
+                        8 transactions
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        /* USER INITIAL */
+
+        const savedUser =
+            localStorage.getItem("loggedInUser");
+
+        if(savedUser){
+
+            try{
+
+                const user =
+                    JSON.parse(savedUser);
+
+                const fullName =
+                    user.fullName ||
+                    user.username ||
+                    "User";
+
+                const initials =
+                    fullName
+                    .trim()
+                    .split(/\s+/)
+                    .map(word => word.charAt(0))
+                    .join("")
+                    .substring(0,2)
+                    .toUpperCase();
+
+                document.getElementById("userInitial")
+                    .textContent =
+                    initials || "U";
+
+            }
+            catch(error){
+
+                console.log(
+                    "User information unavailable."
+                );
+
+            }
+
+        }
+
+
+        /* SEARCH */
+
+        function searchLedger(){
+
+            const search =
+                document.getElementById("searchInput")
+                .value
+                .toLowerCase()
+                .trim();
+
+            const rows =
+                document.querySelectorAll(".ledger-row");
+
+            let found = false;
+
+            rows.forEach(row => {
+
+                const text =
+                    row.textContent.toLowerCase();
+
+                if(text.includes(search)){
+
+                    row.style.display = "";
+                    found = true;
+
+                }
+                else{
+
+                    row.style.display = "none";
+
+                }
+
+            });
+
+            document.getElementById("noResult")
+                .style.display =
+                found ? "none" : "block";
+
+        }
+
+
+        /* FILTER */
+
+        function filterLedger(type, button){
+
+            const rows =
+                document.querySelectorAll(".ledger-row");
+
+            const buttons =
+                document.querySelectorAll(".filter-btn");
+
+            buttons.forEach(btn => {
+                btn.classList.remove("active");
+            });
+
+            button.classList.add("active");
+
+            let found = false;
+
+            rows.forEach(row => {
+
+                const rowType =
+                    row.getAttribute("data-type");
+
+                if(
+                    type === "all" ||
+                    type === rowType
+                ){
+
+                    row.style.display = "";
+                    found = true;
+
+                }
+                else{
+
+                    row.style.display = "none";
+
+                }
+
+            });
+
+            document.getElementById("noResult")
+                .style.display =
+                found ? "none" : "block";
+
+        }
+
+
+        /* EXPORT */
+
+        function exportLedger(){
+
+            alert(
+                "Ledger Export\n\n" +
+                "Your ledger report is ready.\n\n" +
+                "This is a demo interface. " +
+                "No actual file will be downloaded."
+            );
+
+        }
+
+
+        /* LOGOUT */
+
+        function logoutUser(){
+
+            localStorage.removeItem(
+                "loggedInUser"
+            );
+
+            window.location.href =
+                "index.html";
+
+        }
+
+    </script>
+
+</body>
+</html>
