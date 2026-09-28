@@ -24,13 +24,10 @@
 
 body{
     min-height:100vh;
-
     background:#f4faf7;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     padding:30px;
 }
 
@@ -40,18 +37,12 @@ body{
 .container{
     width:100%;
     max-width:1000px;
-
     min-height:620px;
-
     background:white;
-
     border-radius:22px;
-
     overflow:hidden;
-
     display:grid;
     grid-template-columns:1fr 1fr;
-
     border:1px solid #dfece7;
 
     box-shadow:
@@ -63,9 +54,7 @@ body{
 
 .left{
     background:#087f5b;
-
     color:white;
-
     padding:55px 48px;
 
     display:flex;
@@ -79,20 +68,15 @@ body{
 .logo{
     display:flex;
     align-items:center;
-
     gap:12px;
-
     margin-bottom:50px;
 }
 
 .logo-circle{
     width:48px;
     height:48px;
-
     border-radius:50%;
-
     background:white;
-
     color:#087f5b;
 
     display:flex;
@@ -105,9 +89,7 @@ body{
 
 .logo-text{
     font-size:17px;
-
     font-weight:bold;
-
     line-height:1.2;
 }
 
@@ -116,9 +98,7 @@ body{
 
 .left h1{
     font-size:42px;
-
     line-height:1.12;
-
     margin-bottom:20px;
 }
 
@@ -128,45 +108,34 @@ body{
 
 .left p{
     font-size:15px;
-
     line-height:1.7;
-
     color:rgba(255,255,255,.86);
-
     margin-bottom:35px;
 }
 
 
-/* ================= FEATURES ================= */
+/* ================= LEFT FEATURES ================= */
 
 .features{
     display:flex;
-
     flex-direction:column;
-
     gap:16px;
 }
 
 .feature{
     display:flex;
-
     align-items:center;
-
     gap:12px;
-
     font-size:13px;
 }
 
 .feature-icon{
     width:31px;
     height:31px;
-
     border-radius:50%;
-
     background:rgba(255,255,255,.14);
 
     display:flex;
-
     align-items:center;
     justify-content:center;
 }
@@ -178,9 +147,7 @@ body{
     padding:55px 48px;
 
     display:flex;
-
     flex-direction:column;
-
     justify-content:center;
 }
 
@@ -189,17 +156,13 @@ body{
 
 .right h2{
     font-size:30px;
-
     color:#16352b;
-
     margin-bottom:8px;
 }
 
 .subtitle{
     color:#7a8d86;
-
     font-size:13px;
-
     margin-bottom:30px;
 }
 
@@ -212,23 +175,17 @@ body{
 
 .form-group label{
     display:block;
-
     color:#526a61;
-
     font-size:11px;
-
     font-weight:bold;
-
     margin-bottom:7px;
 }
 
 .form-group input{
     width:100%;
-
     height:44px;
 
     border:1px solid #d6e6df;
-
     border-radius:8px;
 
     padding:0 13px;
@@ -236,9 +193,7 @@ body{
     outline:none;
 
     font-size:13px;
-
     color:#16352b;
-
     background:white;
 }
 
@@ -254,9 +209,7 @@ body{
 
 .options{
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
 
     margin:4px 0 22px;
@@ -266,11 +219,8 @@ body{
 
 .remember{
     display:flex;
-
     align-items:center;
-
     gap:6px;
-
     color:#71857d;
 }
 
@@ -280,9 +230,7 @@ body{
 
 .forgot{
     color:#087f5b;
-
     text-decoration:none;
-
     font-weight:bold;
 }
 
@@ -291,19 +239,15 @@ body{
 
 .sign-btn{
     width:100%;
-
     height:45px;
 
     border:none;
-
     border-radius:8px;
 
     background:#087f5b;
-
     color:white;
 
     font-size:13px;
-
     font-weight:bold;
 
     cursor:pointer;
@@ -355,7 +299,6 @@ body{
     margin-top:10px;
 
     width:100%;
-
     height:43px;
 
     background:white;
@@ -367,7 +310,6 @@ body{
     border-radius:8px;
 
     font-size:12px;
-
     font-weight:bold;
 
     cursor:pointer;
@@ -378,19 +320,92 @@ body{
 }
 
 
+/* =====================================================
+   FOUR BOTTOM FEATURE BOXES
+   ===================================================== */
+
+.login-features{
+    width:100%;
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+
+    margin-top:18px;
+
+    /* BROWN COLOR */
+    background:#8B5E3C;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    color:white;
+}
+
+.login-feature{
+    min-height:78px;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    padding:7px 3px;
+
+    border-right:1px solid rgba(255,255,255,.20);
+}
+
+.login-feature:last-child{
+    border-right:none;
+}
+
+.login-feature-icon{
+    width:30px;
+    height:30px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.13);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin-bottom:4px;
+
+    font-size:13px;
+    font-weight:bold;
+}
+
+.login-feature strong{
+    font-size:8px;
+    line-height:1.15;
+    font-weight:800;
+}
+
+.login-feature span{
+    font-size:7px;
+    line-height:1.15;
+    font-weight:700;
+
+    margin-top:2px;
+}
+
+
 /* ================= TERMS MODAL ================= */
 
 .modal{
     display:none;
 
     position:fixed;
-
     inset:0;
 
     background:rgba(0,0,0,.45);
 
     align-items:center;
-
     justify-content:center;
 
     padding:20px;
@@ -400,7 +415,6 @@ body{
 
 .modal-box{
     width:100%;
-
     max-width:500px;
 
     background:white;
@@ -415,19 +429,14 @@ body{
 
 .modal-box h3{
     font-size:22px;
-
     color:#16352b;
-
     margin-bottom:12px;
 }
 
 .modal-box p{
     font-size:12px;
-
     color:#71857d;
-
     line-height:1.7;
-
     margin-bottom:18px;
 }
 
@@ -467,13 +476,11 @@ body{
 
 .agree input{
     margin-top:2px;
-
     accent-color:#087f5b;
 }
 
 .modal-buttons{
     display:flex;
-
     gap:10px;
 }
 
@@ -487,7 +494,6 @@ body{
     cursor:pointer;
 
     font-size:12px;
-
     font-weight:bold;
 }
 
@@ -518,7 +524,6 @@ body{
 
     .container{
         grid-template-columns:1fr;
-
         max-width:500px;
     }
 
@@ -559,6 +564,28 @@ body{
         flex-direction:column;
     }
 
+    .login-features{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .login-feature{
+        min-height:68px;
+    }
+
+    .login-feature-icon{
+        width:25px;
+        height:25px;
+        font-size:10px;
+    }
+
+    .login-feature strong{
+        font-size:7px;
+    }
+
+    .login-feature span{
+        font-size:6px;
+    }
+
 }
 
 </style>
@@ -579,7 +606,6 @@ body{
     <!-- ================= LEFT ================= -->
 
     <div class="left">
-
 
         <!-- LOGO -->
 
@@ -616,7 +642,6 @@ body{
         <!-- FEATURES -->
 
         <div class="features">
-
 
             <div class="feature">
 
@@ -804,6 +829,85 @@ body{
 
         </div>
 
+
+        <!-- =================================================
+             FOUR BROWN FEATURE BOXES
+             ================================================= -->
+
+        <div class="login-features">
+
+
+            <!-- ZERO BROKERAGE -->
+
+            <div class="login-feature">
+
+                <div class="login-feature-icon">
+                    0%
+                </div>
+
+                <strong>ZERO</strong>
+
+                <span>
+                    BROKERAGE
+                </span>
+
+            </div>
+
+
+            <!-- INSTANT PAYOUTS -->
+
+            <div class="login-feature">
+
+                <div class="login-feature-icon">
+                    ▰
+                </div>
+
+                <strong>INSTANT</strong>
+
+                <span>
+                    PAYOUTS
+                </span>
+
+            </div>
+
+
+            <!-- 3X MARGIN -->
+
+            <div class="login-feature">
+
+                <div class="login-feature-icon">
+                    3X
+                </div>
+
+                <strong>3X</strong>
+
+                <span>
+                    MARGIN ON TIME
+                </span>
+
+            </div>
+
+
+            <!-- INTERNATIONAL MARKETS -->
+
+            <div class="login-feature">
+
+                <div class="login-feature-icon">
+                    ✉
+                </div>
+
+                <strong>NSE &</strong>
+
+                <span>
+                    INTERNATIONAL<br>
+                    MARKETS
+                </span>
+
+            </div>
+
+
+        </div>
+
     </div>
 
 </div>
@@ -942,26 +1046,71 @@ async function signIn(){
        ================================================= */
 
     try {
-        const response = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
-        });
 
-        const data = await response.json();
+        const response = await fetch(
+            '/api/auth/login',
+            {
+                method: 'POST',
 
-        if (response.ok && data.success) {
-            localStorage.setItem("authToken", data.token);
-            localStorage.setItem("loggedInUser", JSON.stringify(data.user));
+                headers: {
+                    'Content-Type': 'application/json'
+                },
 
-            document.getElementById("termsModal").style.display = "flex";
-        } else {
-            alert(data.message || "Invalid login details.");
+                body: JSON.stringify({
+                    username,
+                    password
+                })
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if(response.ok && data.success){
+
+            localStorage.setItem(
+                "authToken",
+                data.token
+            );
+
+            localStorage.setItem(
+                "loggedInUser",
+                JSON.stringify(data.user)
+            );
+
+
+            document.getElementById(
+                "termsModal"
+            ).style.display = "flex";
+
         }
-    } catch (error) {
-        console.error("Login error:", error);
-        alert("Unable to connect to backend server. Please check if the server is running.");
+
+        else{
+
+            alert(
+                data.message ||
+                "Invalid login details."
+            );
+
+        }
+
     }
+
+    catch(error){
+
+        console.error(
+            "Login error:",
+            error
+        );
+
+        alert(
+            "Unable to connect to backend server. Please check if the server is running."
+        );
+
+    }
+
 }
 
 
@@ -972,7 +1121,9 @@ async function signIn(){
 function acceptTerms(){
 
     const checkbox =
-        document.getElementById("agreeTerms");
+        document.getElementById(
+            "agreeTerms"
+        );
 
 
     if(!checkbox.checked){
@@ -984,10 +1135,6 @@ function acceptTerms(){
         return;
     }
 
-
-    /*
-       Go to dashboard
-    */
 
     window.location.href =
         "Dashboard.html";
@@ -1001,17 +1148,18 @@ function acceptTerms(){
 
 function closeTerms(){
 
-    document.getElementById("termsModal")
-        .style.display = "none";
+    document.getElementById(
+        "termsModal"
+    ).style.display = "none";
 
 
-    /*
-       Remove temporary login session
-       if user cancels terms.
-    */
+    localStorage.removeItem(
+        "loggedInUser"
+    );
 
-    localStorage.removeItem("loggedInUser");
-    localStorage.removeItem("authToken");
+    localStorage.removeItem(
+        "authToken"
+    );
 
 }
 
@@ -1034,11 +1182,13 @@ function createAccount(){
 
 function getDemo(){
 
-    document.getElementById("username")
-        .value = "demo";
+    document.getElementById(
+        "username"
+    ).value = "demo";
 
-    document.getElementById("password")
-        .value = "1234";
+    document.getElementById(
+        "password"
+    ).value = "1234";
 
 }
 
